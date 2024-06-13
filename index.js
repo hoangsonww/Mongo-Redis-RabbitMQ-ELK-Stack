@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const redis = require('redis');
-const config = require('./config');
-const testRoutes = require('./routes/test');
 const amqp = require('amqplib');
 const { MongoClient, ObjectId } = require('mongodb');
+const config = require('./config');
+const testRoutes = require('./routes/test');
 
 // Connect to MongoDB
 mongoose
@@ -65,7 +65,8 @@ async function connectToRabbitMQ() {
                     console.log(" [x] Received '%s'", messageContent);
 
                     channel.ack(msg);
-                } catch (error) {
+                }
+                catch (error) {
                     console.error('Error processing message:', error);
                     channel.nack(msg, false, true);
                 }

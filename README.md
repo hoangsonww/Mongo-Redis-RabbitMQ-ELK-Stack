@@ -39,6 +39,8 @@ To **get started**, run the following commands:
     [x] Received 'This is a test message!'
     ```
    
+6. Visit [http://localhost:5000/](http://localhost:5000/) to test the connection. Also test the routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
+
 ---
    
 **Note:** Before you get started, be sure to have the following installed on your machine by running the following commands (MacOS):
@@ -77,4 +79,4 @@ To **get started**, run the following commands:
     ```bash
     npm init -y
     ```
-   
+---
