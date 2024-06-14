@@ -3,5 +3,5 @@ module.exports = {
     redisHost: '127.0.0.1',
     redisPort: 6379,
     rabbitMQHost: 'localhost',
-    port: 3000
+    port: 3001
 };
