@@ -16,7 +16,8 @@ async function publishMessage(messageContent) {
             connection.close();
             process.exit(0);
         }, 500);
-    } catch (error) {
+    }
+    catch (error) {
         console.error("RabbitMQ Error:", error);
     }
 }

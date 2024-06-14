@@ -80,12 +80,21 @@ async function connectToRabbitMQ() {
 
 connectToRabbitMQ();
 
+async function getExistingConnection() {
+    if (mongoose.connection.readyState === 1) {
+        return mongoose.connection.db;
+    }
+    else {
+        throw new Error('Mongoose is not connected. Please ensure the connection is established before using this function.');
+    }
+}
+
 // MongoDB Aggregation Pipeline Demo
 async function performAggregation() {
     const mongoClient = new MongoClient(config.mongoURI);
     try {
-        await mongoClient.connect();
-        const db = mongoClient.db('newDatabase');
+        // Connect to the existing MongoDB connection we created earlier
+        const db = await mongoClient.connect().then(() => getExistingConnection());
 
         const ordersCollection = db.collection('orders');
         const customersCollection = db.collection('customers');
