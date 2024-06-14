@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "amqplib": "^0.10.4",
+    "axios": "^1.7.2",
     "express": "^4.19.2",
     "mongoose": "^8.4.1",
     "redis": "^4.6.14"
