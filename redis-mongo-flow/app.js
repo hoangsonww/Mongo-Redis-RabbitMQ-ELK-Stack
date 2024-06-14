@@ -30,9 +30,11 @@ app.get('/data/:key', async (req, res) => {
 
         data = await collection.findOne({ key });
 
+        // Store data in Redis, even if it's null (to prevent future queries to MongoDB)
+        await redisClient.setEx(key, 3600, JSON.stringify(data || null)); // Cache data for 1 hour (3600 seconds)
+
         // After successfully querying MongoDB, store data in Redis for future requests and return the data from MongoDB
         if (data) {
-            await redisClient.set(key, JSON.stringify(data), 'EX', 3600); // Cache data for 1 hour
             return res.json({ source: 'mongodb', data });
         }
     }
