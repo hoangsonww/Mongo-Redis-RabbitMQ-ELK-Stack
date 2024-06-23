@@ -13,7 +13,8 @@ client.connect()
 client.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error(err);
-    } else {
+    }
+    else {
         console.log(res.rows);
     }
     client.end(); // Close the connection

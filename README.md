@@ -1,5 +1,75 @@
-# Node.js, MongoDB, Redis, and RabbitMQ Test Project
+# Node.js, MongoDB, Redis, Postgres, and RabbitMQ Sample Project
 
+## Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+  - [MongoDB](#mongodb)
+  - [Redis-Mongo-Flow](#redis-mongo-flow)
+  - [RabbitMQ](#rabbitmq)
+  - [Round-Robin Load Balancing Algorithm](#round-robin-load-balancing-algorithm)
+- [Getting Started](#getting-started)
+- [Special Notes](#special-notes)
+- [Recommended GUI Tools](#recommended-gui-tools)
+- [License](#license)
+- [Author](#author)
+
+## Introduction
+
+This project is a sample Node.js Backend project that demonstrates how to connect to MongoDB, Redis, PostgreSQL, and RabbitMQ. It also demonstrates how these services can be used and interact with each other in a Node.js application.
+
+## Features
+
+### MongoDB
+- **MongoDB**: The project connects to a MongoDB database and performs CRUD operations.
+  - **Aggregation**: The project demonstrates how to use MongoDB's aggregation framework to perform complex queries, such as:
+    - Grouping data by a field.
+    - Filtering data based on a condition (lookup, match, project, etc.)
+    - Sorting data.
+    - Unwinding arrays.
+
+### Redis-Mongo-Flow
+- **Redis-Mongo-Flow**: The project also demonstrates how to use Redis as a cache layer for MongoDB.
+  - This is done by first checking if the data exists in Redis. 
+  - If it does, the data is retrieved from Redis. 
+  - If it doesn't, the data is retrieved from MongoDB and stored in Redis.
+  - This is done to reduce the number of queries to the database, thereby reducing the load on the database.
+
+### RabbitMQ
+- **RabbitMQ**: The project also demonstrates how to connect to RabbitMQ and publish and consume messages.
+  - The project uses RabbitMQ to publish a message and consume it.
+  - The message is published to a queue and consumed by a consumer.
+  - This is done to demonstrate how to use RabbitMQ for asynchronous communication between services.
+
+### Round-Robin Load Balancing Algorithm
+- **Round-Robin Load Balancing Algorithm**: The project also demonstrates how to use Redis to implement round-robin load balancing.
+  - The project has two routes, `/api/test/route1` and `/api/test/route2`.
+  - The project uses Redis to store the number of requests to each route.
+  - The project uses round-robin load balancing to distribute the requests evenly between the two routes.
+
+## Project Structure
+
+The project has the following structure:
+
+```
+node-mongo-redis-project
+├── index.js         # Main entry point for the project for testing the connections
+├── config.js        # Configuration file for the project
+├── package.json     # NPM package file
+├── publish.js       # Script to publish a message to RabbitMQ
+├── README.md
+├── routes
+│   └── test.js      # Sample routes for the project
+├── redis-mongo-flow
+│   ├── app.js       # Core logic of the Redis-Mongo flow
+│   ├── config.js    # Configuration file for Redis and MongoDB         
+│   ├── seed.js      # Script to populate MongoDB with sample data
+│   └── test.js      # Script to test the Redis-Mongo flow
+└── postgresql
+    └── app.js       # Core logic for PostgreSQL
+    └── config.js    # Configuration file for PostgreSQL
+```
+
+## Getting Started
 To **get started**, run the following commands:
 
 1. Start the MongoDB service:
@@ -41,8 +111,8 @@ To **get started**, run the following commands:
    
 6. Visit [http://localhost:5000/](http://localhost:5000/) to test the connection. Also test the routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
 
----
-   
+## Special Notes
+
 **Note:** Before you get started, be sure to have the following installed on your machine by running the following commands (MacOS):
 
 1. Install Homebrew:
@@ -80,4 +150,25 @@ To **get started**, run the following commands:
     npm init -y
     ```
    
+7. Install the required packages:
+    ```bash
+    npm install
+    ```
+ 
+## Recommended GUI Tools
+
+- **MongoDB Compass**: A GUI tool for MongoDB that allows you to interact with your MongoDB databases.
+- **RedisInsight**: A GUI tool for Redis that allows you to interact with your Redis databases.
+- **RabbitMQ Management Plugin**: A plugin for RabbitMQ that provides a web-based management interface for RabbitMQ.
+- **Postico**: A GUI tool for PostgreSQL that allows you to interact with your PostgreSQL databases.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+- **Son Nguyen** - [GitHub](https://github.com/hoangsonww)
+- **Email**: [info@movie-verse.com](mailto:info@movie-verse.com)
+
 ---
