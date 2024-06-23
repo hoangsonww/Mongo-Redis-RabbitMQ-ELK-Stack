@@ -57,6 +57,9 @@ node-mongo-redis-project
 ├── package.json     # NPM package file
 ├── publish.js       # Script to publish a message to RabbitMQ
 ├── README.md
+├── round-robin
+│   ├── index.js     # Core logic for round-robin load balancing & for testing the algorithm
+│   └── config.js    # Configuration file for Redis
 ├── routes
 │   └── test.js      # Sample routes for the project
 ├── redis-mongo-flow
@@ -110,6 +113,12 @@ To **get started**, run the following commands:
     ```
    
 6. Visit [http://localhost:5000/](http://localhost:5000/) to test the connection. Also test the routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
+
+7. (Optional) Test the Round-Robin Load Balancing Algorithm:
+    ```bash
+    cd round-robin
+    node index.js
+    ```
 
 ## Special Notes
 
