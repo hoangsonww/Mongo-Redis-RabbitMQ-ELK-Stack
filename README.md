@@ -175,6 +175,8 @@ To **get started**, run the following commands:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+Feel free to use this project for your own learning purposes or as a reference for your own projects!
+
 ## Author
 
 - **Son Nguyen** - [GitHub](https://github.com/hoangsonww)
