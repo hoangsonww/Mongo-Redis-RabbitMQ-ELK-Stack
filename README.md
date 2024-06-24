@@ -184,6 +184,7 @@ To **get started**, run the following commands:
 - **MongoDB Compass**: A GUI tool for MongoDB that allows you to interact with your MongoDB databases.
 - **RedisInsight**: A GUI tool for Redis that allows you to interact with your Redis databases.
 - **RabbitMQ Management Plugin**: A plugin for RabbitMQ that provides a web-based management interface for RabbitMQ.
+- **Kibana**: A GUI tool for Elasticsearch that allows you to visualize and analyze your data.
 - **Postico**: A GUI tool for PostgreSQL that allows you to interact with your PostgreSQL databases.
 
 ## License
