@@ -1,4 +1,4 @@
-# Node.js, MongoDB, Redis, Postgres, and RabbitMQ Sample Project
+# Node.js, MongoDB, Redis, Postgres, ELK, and RabbitMQ Sample Project
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -7,6 +7,7 @@
   - [Redis-Mongo-Flow](#redis-mongo-flow)
   - [RabbitMQ](#rabbitmq)
   - [Round-Robin Load Balancing Algorithm](#round-robin-load-balancing-algorithm)
+  - [ELK Stack](#elk-stack)
 - [Getting Started](#getting-started)
 - [Special Notes](#special-notes)
 - [Recommended GUI Tools](#recommended-gui-tools)
@@ -46,6 +47,12 @@ This project is a sample Node.js Backend project that demonstrates how to connec
   - The project uses Redis to store the number of requests to each route.
   - The project uses round-robin load balancing to distribute the requests evenly between the two routes.
 
+### ELK Stack
+- **ELK Stack**: The project also demonstrates how to use the ELK stack (Elasticsearch, Logstash, Kibana) for logging.
+  - The project uses Logstash to parse the log messages and send them to Elasticsearch.
+  - Elasticsearch will then index the log messages for searching and analysis.
+  - (Optional) You can also enhance the project by using Kibana to visualize the log data.
+
 ## Project Structure
 
 The project has the following structure:
@@ -67,6 +74,8 @@ node-mongo-redis-project
 │   ├── config.js    # Configuration file for Redis and MongoDB         
 │   ├── seed.js      # Script to populate MongoDB with sample data
 │   └── test.js      # Script to test the Redis-Mongo flow
+├── elk-stack
+│   ├── index.js     # Core logic for logging using the ELK stack & testing the stack
 └── postgresql
     └── app.js       # Core logic for PostgreSQL
     └── config.js    # Configuration file for PostgreSQL
@@ -117,6 +126,12 @@ To **get started**, run the following commands:
 7. (Optional) Test the Round-Robin Load Balancing Algorithm:
     ```bash
     cd round-robin
+    node index.js
+    ```
+   
+8. (Optional) Test the ELK Stack:
+    ```bash
+    cd elk-stack
     node index.js
     ```
 
