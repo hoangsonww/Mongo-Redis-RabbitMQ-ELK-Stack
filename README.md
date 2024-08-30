@@ -201,4 +201,4 @@ Feel free to use this project for your own learning purposes or as a reference f
 
 ---
 
-Thank you for checking out this project! 🚀
+Thank you for checking out this project today! 🚀
