@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-deps": "npm install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --config .prettierrc --write \"index.html\" \"app.html\" \"index.js\" \"styles.css\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
     "mongoose": "^8.4.1",
     "node-fetch": "^3.3.2",
     "pg": "^8.12.0",
-    "redis": "^4.6.14"
+    "redis": "^4.6.14",
+    "prettier": "^3.3.3"
   }
 }
