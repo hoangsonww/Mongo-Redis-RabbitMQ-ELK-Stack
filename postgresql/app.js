@@ -5,17 +5,17 @@ const { Client } = require('pg');
 const client = new Client(config);
 
 // Connect to the database
-client.connect()
-    .then(() => console.log('Connected to PostgreSQL database'))
-    .catch(err => console.error('Connection error', err.stack));
+client
+  .connect()
+  .then(() => console.log('Connected to PostgreSQL database'))
+  .catch(err => console.error('Connection error', err.stack));
 
 // Example query
 client.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error(err);
-    }
-    else {
-        console.log(res.rows);
-    }
-    client.end(); // Close the connection
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(res.rows);
+  }
+  client.end(); // Close the connection
 });
