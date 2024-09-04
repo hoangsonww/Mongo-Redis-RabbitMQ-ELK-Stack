@@ -6,11 +6,20 @@
     "start": "node index.js",
     "install-deps": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --config .prettierrc --write \"index.html\" \"app.html\" \"index.js\" \"styles.css\""
+    "format": "prettier --config .prettierrc --write \"index.js\" \"config.js\" \"publish.js\" \"elk-stack/*.{html,css,js,jsx,ts,tsx}\" \"postgresql/*.{html,css,js,jsx,ts,tsx}\" \"redis-mongo-flow/*.{html,css,js,jsx,ts,tsx}\" \"round-robin/*.{html,css,js,jsx,ts,tsx}\" \"routes/*.{html,css,js,jsx,ts,tsx}\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "mongo",
+    "redis",
+    "flow",
+    "project",
+    "amqplib",
+    "axios",
+    "express",
+    "mongoose"
+  ],
+  "author": "Son Nguyen",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
