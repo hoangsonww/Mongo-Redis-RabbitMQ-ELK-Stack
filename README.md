@@ -106,6 +106,11 @@ To **get started**, run the following commands:
     redis-server
     ```
    
+3. Start the RabbitMQ service:
+    ```bash
+    brew services start rabbitmq
+    ```
+   
 3. `cd` into the project directory:
     ```bash
    cd node-mongo-redis-project
