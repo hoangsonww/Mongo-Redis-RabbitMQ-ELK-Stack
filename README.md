@@ -1,4 +1,4 @@
-# Node.js, MongoDB, Redis, Postgres, ELK, and RabbitMQ Demo Project
+# Node.js, MongoDB, Redis, Postgres, Kafka, ELK, and RabbitMQ Demo Project
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -6,6 +6,7 @@
   - [MongoDB](#mongodb)
   - [Redis-Mongo-Flow](#redis-mongo-flow)
   - [RabbitMQ](#rabbitmq)
+  - [Apache Kafka](#apache-kafka)
   - [Round-Robin Load Balancing Algorithm](#round-robin-load-balancing-algorithm)
   - [ELK Stack](#elk-stack)
 - [Getting Started](#getting-started)
