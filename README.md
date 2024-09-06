@@ -170,7 +170,8 @@ To **get started**, run the following commands:
     [x] Received 'This is a test message!'
     ```
    
-8. Visit [http://localhost:5000/](http://localhost:5000/) to test the connection. Also test the routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
+8. Visit [http://localhost:5000/](http://localhost:5000/) to test the connections. 
+   - Also test the API routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
 
 9. (Optional) Test the Round-Robin Load Balancing Algorithm:
     ```bash
