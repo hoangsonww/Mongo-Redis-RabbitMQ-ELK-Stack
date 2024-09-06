@@ -16,7 +16,7 @@
 - [Author](#author)
 
 ## Introduction
-This project is a sample Node.js Backend project that demonstrates how to connect to MongoDB, Redis, PostgreSQL, and RabbitMQ. It demonstrates how these services can be used and interact with each other in a Node.js application.
+This project is a sample Node.js Backend project that demonstrates how to connect to **MongoDB, Redis, PostgreSQL, Kafka, and RabbitMQ.** It demonstrates how these services can be used and interact with each other in a Node.js application.
 
 Additionally, the project demonstrates how to use the ELK stack (Elasticsearch, Logstash, Kibana) for logging, as well as how to implement a round-robin load balancing algorithm using Redis.
 
