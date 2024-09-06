@@ -74,6 +74,8 @@ node-mongo-redis-project
 ├── package.json     # NPM package file
 ├── publish.js       # Script to publish a message to RabbitMQ
 ├── README.md
+├── apache-kafka
+│   └── kafkaService.js  # Core logic for Apache Kafka
 ├── round-robin
 │   ├── index.js     # Core logic for round-robin load balancing & for testing the algorithm
 │   └── config.js    # Configuration file for Redis
