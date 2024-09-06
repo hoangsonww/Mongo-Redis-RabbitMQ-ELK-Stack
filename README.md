@@ -263,14 +263,14 @@ To **get started**, run the following commands:
     brew services start postgresql
     ```
    
-   Create a new database:
+   Create a new database named `davidnguyen` (or any name you prefer - as long as you change the database credentials in the `postgresql/config.js` file):
     ```bash
-    createdb mydatabase
+    createdb davidnguyen
     ```
    
    Connect to the database:
     ```bash
-    psql mydatabase
+    psql davidnguyen
     ```
    
 7. Install Node.js:
