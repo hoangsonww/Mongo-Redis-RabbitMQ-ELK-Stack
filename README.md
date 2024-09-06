@@ -42,6 +42,12 @@ Additionally, the project demonstrates how to use the ELK stack (Elasticsearch, 
   - The message is published to a queue and consumed by a consumer.
   - This is done to demonstrate how to use RabbitMQ for asynchronous communication between services.
 
+### Apache Kafka
+- **Apache Kafka**: The project also demonstrates how to connect to Apache Kafka and produce and consume messages.
+  - The project uses Apache Kafka to produce a message and consume it.
+  - The message is produced to a topic and consumed by a consumer.
+  - This is done to demonstrate how to use Apache Kafka for real-time data streaming.
+
 ### Round-Robin Load Balancing Algorithm
 - **Round-Robin Load Balancing Algorithm**: The project also demonstrates how to use Redis to implement round-robin load balancing.
   - The project has two routes, `/api/test/route1` and `/api/test/route2`.
@@ -160,6 +166,29 @@ To **get started**, run the following commands:
     ```bash
     brew install rabbitmq
     ```
+   
+5. Install Apache Kafka:
+   - Go to the [Apache Kafka website](https://kafka.apache.org/downloads) and download the latest version of Apache Kafka.
+   - Currently, the most stable version is: **Scala 2.13 version: kafka_2.13-3.8.0.tgz**.
+   - Extract the downloaded file to wherever you want to install Kafka on your machine.
+   - Alternatively, you can use this direct link in your terminal to install Kafka:
+     ```bash
+     wget https://downloads.apache.org/kafka/3.8.0/kafka_2.13-3.8.0.tgz
+     ```
+
+6. Ensure Kafka is running:
+   - First, navigate to the Kafka directory:
+     ```bash
+     cd kafka_2.13-3.8.0
+     ```
+   - Start the Zookeeper service:
+       ```bash
+       bin/zookeeper-server-start.sh config/zookeeper.properties
+       ```
+   - Start the Kafka service:
+       ```bash
+       bin/kafka-server-start.sh config/server.properties
+       ```
    
 5. Install Node.js:
     ```bash
