@@ -207,8 +207,7 @@ To **get started**, run the following commands:
     ```
 
 ## Special Notes
-
-**Note:** Before you get started, be sure to have the following installed on your machine by running the following commands (MacOS):
+**Note:** Before you get started, be sure to have the following installed on your machine by running the following commands (the following instructions are for MacOS):
 
 1. Install Homebrew:
     ```bash
@@ -253,6 +252,26 @@ To **get started**, run the following commands:
        ```bash
        bin/kafka-server-start.sh config/server.properties
        ```
+     
+7. Install Postgres:
+    ```bash
+    brew install postgresql
+    ```
+   
+   Start the Postgres service:
+    ```bash
+    brew services start postgresql
+    ```
+   
+   Create a new database:
+    ```bash
+    createdb mydatabase
+    ```
+   
+   Connect to the database:
+    ```bash
+    psql mydatabase
+    ```
    
 7. Install Node.js:
     ```bash

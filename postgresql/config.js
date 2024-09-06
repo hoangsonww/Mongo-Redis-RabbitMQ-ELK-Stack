@@ -1,3 +1,4 @@
+// Change these values to your own PostgreSQL database credentials:
 module.exports = {
   DB_USER: 'root',
   DB_HOST: 'localhost',
