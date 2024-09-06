@@ -1,5 +1,5 @@
 {
-  "name": "mongo-redis-project",
+  "name": "mongo-redis-postgresql-elk-stack",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -15,12 +15,20 @@
     "project",
     "amqplib",
     "axios",
+    "http-proxy",
+    "postgresql",
+    "elasticsearch",
+    "elk-stack",
     "express",
     "mongoose"
   ],
   "author": "Son Nguyen",
   "license": "MIT",
-  "description": "",
+  "description": "A demo project to show how to use Redis, MongoDB, PostgreSQL, and ELK stack in a Node.js project",
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
     "amqplib": "^0.10.4",
