@@ -27,7 +27,7 @@
   "description": "A demo project to show how to use Redis, MongoDB, PostgreSQL, and ELK stack in a Node.js project",
   "repository": {
     "type": "git",
-    "url": "git"
+    "url": "git+https://github.com/hoangsonww/Mongo-Redis-RabbitMQ-ELK-Stack.git"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
