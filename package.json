@@ -1,6 +1,6 @@
 {
   "name": "mongo-redis-postgresql-elk-stack",
-  "displayName": "Mongo Redis PostgreSQL ELK Stack Project",
+  "displayName": "Mongo Redis PostgreSQL ELK Stack Backend Project",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
