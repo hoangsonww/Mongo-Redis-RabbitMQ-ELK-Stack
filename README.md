@@ -87,10 +87,10 @@ node-mongo-redis-project
 │   ├── seed.js          # Script to populate MongoDB with sample data
 │   └── test.js          # Script to test the Redis-Mongo flow
 ├── elk-stack
-│   ├── index.js     # Core logic for logging using the ELK stack & testing the stack
+│   ├── index.js         # Core logic for logging using the ELK stack & testing the stack
 └── postgresql
-    └── app.js       # Core logic for PostgreSQL
-    └── config.js    # Configuration file for PostgreSQL
+    └── app.js           # Core logic for PostgreSQL
+    └── config.js        # Configuration file for PostgreSQL
 ```
 
 ## Getting Started
