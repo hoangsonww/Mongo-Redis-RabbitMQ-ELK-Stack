@@ -172,7 +172,7 @@ To **get started**, run the following commands:
     node index.js
     ```
    
-8. (Optional) Test the ELK Stack:
+10. (Optional) Test the ELK Stack:
     ```bash
     cd elk-stack
     node index.js
