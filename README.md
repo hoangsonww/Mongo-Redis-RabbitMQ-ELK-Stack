@@ -190,12 +190,12 @@ To **get started**, run the following commands:
        bin/kafka-server-start.sh config/server.properties
        ```
    
-5. Install Node.js:
+7. Install Node.js:
     ```bash
     brew install node
     ```
    
-6. Install NPM:
+8. Install NPM:
     ```bash
     brew install npm
     ```
@@ -204,7 +204,7 @@ To **get started**, run the following commands:
     npm init -y
     ```
    
-7. Install the required packages:
+9. Install the required packages:
     ```bash
     npm install
     ```
