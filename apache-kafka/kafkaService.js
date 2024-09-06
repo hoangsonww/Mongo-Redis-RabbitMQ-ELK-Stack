@@ -1,6 +1,5 @@
-// kafkaService.js
-const { Kafka } = require('kafkajs'); // Import KafkaJS
-const config = require('../config'); // Import your configuration
+const { Kafka } = require('kafkajs');
+const config = require('../config');
 
 // Initialize Kafka
 const kafka = new Kafka({
