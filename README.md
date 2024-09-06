@@ -158,6 +158,7 @@ To **get started**, run the following commands:
     ```bash
     node publish.js
     ```
+   
    Verify that the message is received by the consumer by going to the terminal that is running the Node.js server (the one you started the index.js script).
    You should receive the following messages in the terminal:
    ```bash
