@@ -293,7 +293,6 @@ To **get started**, run the following commands:
     ```
 
 ## Test Statuses
-
   [![MongoDB](https://img.shields.io/badge/MongoDB-Passed-brightgreen)](https://www.mongodb.com/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Passed-brightgreen)](https://www.postgresql.org/)
   [![Redis](https://img.shields.io/badge/Redis-Passed-brightgreen)](https://redis.io/)
@@ -304,7 +303,6 @@ To **get started**, run the following commands:
   [![Round-Robin Load Balancing Algorithm](https://img.shields.io/badge/Round--Robin%20Load%20Balancing%20Algorithm-Passed-brightgreen)](https://redis.io/)
 
 ## Recommended GUI Tools
-
 - **MongoDB Compass**: A GUI tool for MongoDB that allows you to interact with your MongoDB databases.
 - **RedisInsight**: A GUI tool for Redis that allows you to interact with your Redis databases.
 - **RabbitMQ Management Plugin**: A plugin for RabbitMQ that provides a web-based management interface for RabbitMQ.
