@@ -69,10 +69,10 @@ The project has the following structure:
 
 ```
 node-mongo-redis-project
-├── index.js         # Main entry point for the project for testing the connections
-├── config.js        # Configuration file for the project
-├── package.json     # NPM package file
-├── publish.js       # Script to publish a message to RabbitMQ
+├── index.js             # Main entry point for the project for testing the connections
+├── config.js            # Configuration file for the project
+├── package.json         # NPM package file
+├── publish.js           # Script to publish a message to RabbitMQ
 ├── README.md
 ├── apache-kafka
 │   └── kafkaService.js  # Core logic for Apache Kafka
