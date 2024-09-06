@@ -5,6 +5,9 @@ const amqp = require('amqplib');
 const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./config');
 const testRoutes = require('./routes/test');
+const { connectToKafka, sendMessageToKafka } = require('./apache-kafka/kafkaService');
+
+connectToKafka();
 
 // Connect to MongoDB
 mongoose
@@ -33,8 +36,10 @@ const app = express();
 app.use('/api/test', testRoutes);
 
 app.get('/', (req, res) => {
-  const message = 'Server is running! MongoDB and Redis connections established.';
+  const message = 'Server is running! MongoDB, RabbitMQ, Kafka, and Redis connections established.';
   console.log(message);
+
+  sendMessageToKafka('Hello Kafka from Express!');
   res.send(message);
 });
 

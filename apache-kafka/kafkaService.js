@@ -3,7 +3,7 @@ const config = require('../config');
 
 // Initialize Kafka
 const kafka = new Kafka({
-  clientId: 'my-app',
+  clientId: 'demo-kafka-app',
   brokers: [config.kafkaBroker], // Provide the Kafka broker URL from your config
 });
 
