@@ -154,11 +154,11 @@ To **get started**, run the following commands:
     { _id: 'David', totalOrderValue: 100 },
     { _id: 'Charlie', totalOrderValue: 35 },
     { _id: 'Grace', totalOrderValue: 75 },
-    { _id: 'Alice', totalOrderValue: 50 },
-    { _id: 'Bob', totalOrderValue: 80 },
-    { _id: 'Ivy', totalOrderValue: 55 },
-    { _id: 'Eve', totalOrderValue: 45 },
-    { _id: 'Helen', totalOrderValue: 90 }
+      { _id: 'Alice', totalOrderValue: 50 },
+      { _id: 'Bob', totalOrderValue: 80 },
+      { _id: 'Ivy', totalOrderValue: 55 },
+      { _id: 'Eve', totalOrderValue: 45 },
+      { _id: 'Helen', totalOrderValue: 90 }
     ]
     Sent message to Kafka: Hello Kafka from Express!
     {
