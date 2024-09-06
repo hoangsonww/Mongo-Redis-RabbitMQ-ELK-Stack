@@ -123,7 +123,19 @@ To **get started**, run the following commands:
     Redis Connected
     MongoDB Connected
     Redis Test: Hello from Redis
+    Kafka Producer and Consumer Connected
     RabbitMQ Connected
+    Aggregation result: [
+    { _id: 'Frank', totalOrderValue: 60 },
+    { _id: 'David', totalOrderValue: 100 },
+    { _id: 'Charlie', totalOrderValue: 35 },
+    { _id: 'Grace', totalOrderValue: 75 },
+    { _id: 'Alice', totalOrderValue: 50 },
+    { _id: 'Bob', totalOrderValue: 80 },
+    { _id: 'Ivy', totalOrderValue: 55 },
+    { _id: 'Eve', totalOrderValue: 45 },
+    { _id: 'Helen', totalOrderValue: 90 }
+    ]
     [*] Waiting for messages in task_queue. To exit press CTRL+C
     [x] Received 'This is a test message!'
     ```
