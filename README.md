@@ -111,6 +111,20 @@ To **get started**, run the following commands:
     brew services start rabbitmq
     ```
    
+4. Start the Apache Kafka service:
+    - First, navigate to the Kafka directory:
+      ```bash
+      cd kafka_2.13-3.8.0
+      ```
+    - Start the Zookeeper service:
+        ```bash
+        bin/zookeeper-server-start.sh config/zookeeper.properties
+        ```
+    - Start the Kafka service:
+        ```bash
+        bin/kafka-server-start.sh config/server.properties
+        ```
+   
 3. `cd` into the project directory:
     ```bash
    cd node-mongo-redis-project
