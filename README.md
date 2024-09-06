@@ -190,6 +190,7 @@ To **get started**, run the following commands:
     ```
    
 8. Visit [http://localhost:5000/](http://localhost:5000/) to test the connections. 
+   - You should see the message: **"Server is running! MongoDB, RabbitMQ, Kafka, and Redis connections established."** on the webpage.
    - Also test the API routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
 
 9. (Optional) Test the Round-Robin Load Balancing Algorithm:
