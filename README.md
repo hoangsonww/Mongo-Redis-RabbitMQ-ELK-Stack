@@ -273,12 +273,12 @@ To **get started**, run the following commands:
     psql davidnguyen
     ```
    
-7. Install Node.js:
+9. Install Node.js:
     ```bash
     brew install node
     ```
    
-8. Install NPM:
+10. Install NPM:
     ```bash
     brew install npm
     ```
@@ -287,7 +287,7 @@ To **get started**, run the following commands:
     npm init -y
     ```
    
-9. Install the required packages:
+11. Install all the required packages:
     ```bash
     npm install
     ```
