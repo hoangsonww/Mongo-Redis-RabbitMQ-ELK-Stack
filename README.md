@@ -148,7 +148,6 @@ To **get started**, run the following commands:
     MongoDB Connected
     Redis Test: Hello from Redis
     Kafka Producer and Consumer Connected
-    RabbitMQ Connected
     Aggregation result: [
       { _id: 'Frank', totalOrderValue: 60 },
       { _id: 'David', totalOrderValue: 100 },
@@ -166,6 +165,7 @@ To **get started**, run the following commands:
       partition: 0,
       value: 'Hello Kafka from Express!'
     }
+    RabbitMQ Connected
     [*] Waiting for messages in task_queue. To exit press CTRL+C
     [x] Received 'This is a test message!'
     ```
