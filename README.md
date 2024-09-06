@@ -135,7 +135,7 @@ To **get started**, run the following commands:
     node index.js
     ```
    
-5. (Optional) Test the RabbitMQ service by publishing a message (go to another terminal window):
+7. (Optional) Test the RabbitMQ service by publishing a message (go to another terminal window):
     ```bash
     node publish.js
     ```
@@ -164,7 +164,7 @@ To **get started**, run the following commands:
     [x] Received 'This is a test message!'
     ```
    
-6. Visit [http://localhost:5000/](http://localhost:5000/) to test the connection. Also test the routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
+8. Visit [http://localhost:5000/](http://localhost:5000/) to test the connection. Also test the routes by visiting the following URLs: [http://localhost:5000/api/test/route1](http://localhost:5000/api/test/route1) and [http://localhost:5000/api/test/route2](http://localhost:5000/api/test/route2).
 
 7. (Optional) Test the Round-Robin Load Balancing Algorithm:
     ```bash
