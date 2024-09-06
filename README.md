@@ -291,6 +291,8 @@ To **get started**, run the following commands:
     ```bash
     npm install
     ```
+    
+12. For Windows, refer to the official installation guides for [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/), [Redis](https://redis.io/download), [RabbitMQ](https://www.rabbitmq.com/download.html), [Apache Kafka](https://kafka.apache.org/quickstart), and [PostgreSQL](https://www.postgresql.org/download/windows/).
 
 ## Test Statuses
   [![MongoDB](https://img.shields.io/badge/MongoDB-Passed-brightgreen)](https://www.mongodb.com/)
