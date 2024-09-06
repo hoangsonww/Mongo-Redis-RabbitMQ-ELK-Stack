@@ -98,7 +98,7 @@ To **get started**, run the following commands:
 
 1. Start the MongoDB service:
     ```bash
-    brew services start mongodb/brew/mongodb-community
+    brew services start mongodb-community
     ```
 
 2. Start the Redis service:
