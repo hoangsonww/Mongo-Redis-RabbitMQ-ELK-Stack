@@ -125,7 +125,7 @@ To **get started**, run the following commands:
         bin/kafka-server-start.sh config/server.properties
         ```
    
-3. `cd` into the project directory:
+3. `cd` back into the project directory (fix the path if necessary):
     ```bash
    cd node-mongo-redis-project
    ```
