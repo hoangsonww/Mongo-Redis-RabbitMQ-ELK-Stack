@@ -29,6 +29,9 @@
     "type": "git",
     "url": "git+https://github.com/hoangsonww/Mongo-Redis-RabbitMQ-ELK-Stack.git"
   },
+  "bugs": {
+    "url": "https://github.com/hoangsonww/Mongo-Redis-RabbitMQ-ELK-Stack/issues"
+  },
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
     "amqplib": "^0.10.4",
