@@ -160,6 +160,12 @@ To **get started**, run the following commands:
     { _id: 'Eve', totalOrderValue: 45 },
     { _id: 'Helen', totalOrderValue: 90 }
     ]
+    Sent message to Kafka: Hello Kafka from Express!
+    {
+      topic: 'test-topic',
+      partition: 0,
+      value: 'Hello Kafka from Express!'
+    }
     [*] Waiting for messages in task_queue. To exit press CTRL+C
     [x] Received 'This is a test message!'
     ```
