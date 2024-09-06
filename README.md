@@ -24,23 +24,6 @@ And we call this the **NMRPKER-Stack**! 🚀
 
 ## Features
 
-Here is a table of the features demonstrated in this project:
-
-| Feature                              | Description                                                      |
-|--------------------------------------|------------------------------------------------------------------|
-| MongoDB                              | Connect to MongoDB and perform CRUD operations.                  |
-| Redis-Mongo-Flow                     | Use Redis as a cache layer for MongoDB.                          |
-| RabbitMQ                             | Connect to RabbitMQ and publish and consume messages.            |
-| Apache Kafka                         | Connect to Apache Kafka and produce and consume messages.        |
-| Round-Robin Load Balancing Algorithm | Implement round-robin load balancing using Redis.                |
-| ELK Stack                            | Use the ELK stack (Elasticsearch, Logstash, Kibana) for logging. |
-| PostgreSQL                           | Connect to PostgreSQL and perform CRUD operations.               |
-| Express.js                           | Use Express.js as the web server framework.                      |
-| Node.js                              | Use Node.js as the runtime environment.                          |
-| JavaScript                           | Use JavaScript as the programming language.                      |
-| NPM                                  | Use NPM as the package manager.                                  |
-| REST API                             | Use REST API for communication.                                  |
-
 ### MongoDB
 - **MongoDB**: The project connects to a MongoDB database and performs CRUD operations.
   - **Aggregation**: The project demonstrates how to use MongoDB's aggregation framework to perform complex queries, such as:
@@ -79,6 +62,23 @@ Here is a table of the features demonstrated in this project:
   - The project uses Logstash to parse the log messages and send them to Elasticsearch.
   - Elasticsearch will then index the log messages for searching and analysis.
   - (Optional) You can also enhance the project by using Kibana to visualize the log data.
+
+Here is a table of the features demonstrated in this project:
+
+| Feature                              | Description                                                      |
+|--------------------------------------|------------------------------------------------------------------|
+| MongoDB                              | Connect to MongoDB and perform CRUD operations.                  |
+| Redis-Mongo-Flow                     | Use Redis as a cache layer for MongoDB.                          |
+| RabbitMQ                             | Connect to RabbitMQ and publish and consume messages.            |
+| Apache Kafka                         | Connect to Apache Kafka and produce and consume messages.        |
+| Round-Robin Load Balancing Algorithm | Implement round-robin load balancing using Redis.                |
+| ELK Stack                            | Use the ELK stack (Elasticsearch, Logstash, Kibana) for logging. |
+| PostgreSQL                           | Connect to PostgreSQL and perform CRUD operations.               |
+| Express.js                           | Use Express.js as the web server framework.                      |
+| Node.js                              | Use Node.js as the runtime environment.                          |
+| JavaScript                           | Use JavaScript as the programming language.                      |
+| NPM                                  | Use NPM as the package manager.                                  |
+| REST API                             | Use REST API for communication.                                  |
 
 ## Project Structure
 
