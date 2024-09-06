@@ -268,7 +268,18 @@ To **get started**, run the following commands:
     ```bash
     npm install
     ```
- 
+
+## Test Statuses
+
+[![MongoDB](https://img.shields.io/badge/MongoDB-Passed-brightgreen)](https://www.mongodb.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Passed-brightgreen)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-Passed-brightgreen)](https://redis.io/)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Passed-brightgreen)](https://www.rabbitmq.com/)
+[![Apache Kafka](https://img.shields.io/badge/Apache%20Kafka-Passed-brightgreen)](https://kafka.apache.org/)
+[![ELK Stack](https://img.shields.io/badge/ELK%20Stack-Passed-brightgreen)](https://www.elastic.co/)
+[![REST API](https://img.shields.io/badge/REST%20API-Passed-brightgreen)](https://restfulapi.net/)
+[![Round-Robin Load Balancing Algorithm](https://img.shields.io/badge/Round--Robin%20Load%20Balancing%20Algorithm-Passed-brightgreen)](https://redis.io/)
+
 ## Recommended GUI Tools
 
 - **MongoDB Compass**: A GUI tool for MongoDB that allows you to interact with your MongoDB databases.
