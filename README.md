@@ -77,15 +77,15 @@ node-mongo-redis-project
 ├── apache-kafka
 │   └── kafkaService.js  # Core logic for Apache Kafka
 ├── round-robin
-│   ├── index.js     # Core logic for round-robin load balancing & for testing the algorithm
-│   └── config.js    # Configuration file for Redis
+│   ├── index.js         # Core logic for round-robin load balancing & for testing the algorithm
+│   └── config.js        # Configuration file for Redis
 ├── routes
-│   └── test.js      # Sample routes for the project
+│   └── test.js          # Sample routes for the project
 ├── redis-mongo-flow
-│   ├── app.js       # Core logic of the Redis-Mongo flow
-│   ├── config.js    # Configuration file for Redis and MongoDB         
-│   ├── seed.js      # Script to populate MongoDB with sample data
-│   └── test.js      # Script to test the Redis-Mongo flow
+│   ├── app.js           # Core logic of the Redis-Mongo flow
+│   ├── config.js        # Configuration file for Redis and MongoDB         
+│   ├── seed.js          # Script to populate MongoDB with sample data
+│   └── test.js          # Script to test the Redis-Mongo flow
 ├── elk-stack
 │   ├── index.js     # Core logic for logging using the ELK stack & testing the stack
 └── postgresql
