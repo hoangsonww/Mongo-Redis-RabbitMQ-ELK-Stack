@@ -9,6 +9,7 @@
   - [Apache Kafka](#apache-kafka)
   - [Round-Robin Load Balancing Algorithm](#round-robin-load-balancing-algorithm)
   - [ELK Stack](#elk-stack)
+- [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Special Notes](#special-notes)
 - [Recommended GUI Tools](#recommended-gui-tools)
