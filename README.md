@@ -310,13 +310,11 @@ To **get started**, run the following commands:
 - **Postico**: A GUI tool for PostgreSQL that allows you to interact with your PostgreSQL databases.
 
 ## License
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 Feel free to use this project for your own learning purposes or as a reference for your own projects!
 
 ## Author
-
 - **Son Nguyen** - [GitHub](https://github.com/hoangsonww)
 - **Email**: [info@movie-verse.com](mailto:info@movie-verse.com)
 
