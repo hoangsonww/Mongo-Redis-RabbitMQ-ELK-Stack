@@ -7,6 +7,7 @@ const config = require('./config');
 const testRoutes = require('./routes/test');
 const { connectToKafka, sendMessageToKafka } = require('./apache-kafka/kafkaService');
 
+// Connect to Kafka
 connectToKafka();
 
 // Connect to MongoDB
