@@ -5,6 +5,8 @@ const amqp = require('amqplib');
 const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./config');
 const testRoutes = require('./routes/test');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./docs/swaggerConfig');
 const { connectToKafka, sendMessageToKafka } = require('./apache-kafka/kafkaService');
 
 // Connect to Kafka
@@ -25,7 +27,6 @@ redisClient
   .connect()
   .then(() => {
     console.log('Redis Connected');
-    // Test Redis by setting and getting a simple key-value pair
     return redisClient.set('testKey', 'Hello from Redis');
   })
   .then(() => redisClient.get('testKey'))
@@ -34,20 +35,28 @@ redisClient
 
 const app = express();
 
+// Swagger setup with custom tab title
+const swaggerOptions = {
+  customSiteTitle: 'Express API Documentation',
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
+
+// Routes
 app.use('/api/test', testRoutes);
 
 app.get('/', (req, res) => {
-  const message = 'Server is running! MongoDB, RabbitMQ, Kafka, and Redis connections established.';
+  const message = `Server is running! MongoDB, RabbitMQ, Kafka, and Redis connections established. Visit http://localhost:${PORT}/api-docs for Swagger documentation.`;
   console.log(message);
 
   sendMessageToKafka('Hello Kafka from Express!');
   res.send(message);
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`Visit http://localhost:${PORT}/ to test the connection.`);
+  console.log(`Visit http://localhost:${PORT}/api-docs for Swagger documentation.`);
 });
 
 async function connectToRabbitMQ() {
@@ -140,18 +149,15 @@ async function performAggregation() {
 
     const aggregationResult = await ordersCollection
       .aggregate([
-        // Performs a left outer join between the orders collection and the customers collection.
         {
           $lookup: {
             from: 'customers',
             localField: 'customerId',
             foreignField: '_id',
-            as: 'customerDetails', // The result of the join will be stored in the customerDetails field.
+            as: 'customerDetails',
           },
         },
-        // Unwinds the customerDetails array to create a separate document for each element in the array.
         { $unwind: '$customerDetails' },
-        // Groups the documents by the customer name and calculates the total order value for each customer.
         {
           $group: {
             _id: '$customerDetails.name',

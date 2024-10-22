@@ -35,6 +35,12 @@
             <node kind="database" qname="@">
               <node kind="schema" qname="@" />
             </node>
+            <node kind="database">
+              <name qname="davidnguyen" />
+              <name qname="MovieVerse" />
+              <name qname="postgres" />
+              <node kind="schema" negative="1" />
+            </node>
           </node>
         </introspection-scope>
       </schema-mapping>
