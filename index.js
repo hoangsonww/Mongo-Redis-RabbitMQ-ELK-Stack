@@ -40,18 +40,38 @@ const swaggerOptions = {
   customSiteTitle: 'Express API Documentation',
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
 
 // Routes
 app.use('/api/test', testRoutes);
 
 app.get('/', (req, res) => {
-  const message = `Server is running! MongoDB, RabbitMQ, Kafka, and Redis connections established. Visit http://localhost:${PORT}/api-docs for Swagger documentation.`;
-  console.log(message);
+  const message = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Server Status</title>
+        <style>
+          body { font-family: Arial, sans-serif; text-align: center; }
+          a { cursor: pointer; } 
+        </style>
+    </head>
+    <body>
+        <h1>Server is running!</h1>
+        <p>MongoDB, RabbitMQ, Kafka, and Redis connections established.</p>
+        <p>Visit <a href="/docs">/docs</a> for Swagger documentation.</p>
+        <p>Check console logs for any messages or errors.</p>
+    </body>
+    </html>
+  `;
+
+  console.log('Server is running! MongoDB, RabbitMQ, Kafka, and Redis connections established.');
 
   sendMessageToKafka('Hello Kafka from Express!');
   res.send(message);
 });
+
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
