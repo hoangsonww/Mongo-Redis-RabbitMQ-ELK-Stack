@@ -12,7 +12,7 @@
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Special Notes](#special-notes)
-- [Demo](#demo)
+- [Live Deployment](#live-deployment)
 - [Test Statuses](#test-statuses)
 - [Recommended GUI Tools](#recommended-gui-tools)
 - [License](#license)
@@ -296,9 +296,11 @@ To **get started**, run the following commands:
     
 12. For Windows, refer to the official installation guides for [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/), [Redis](https://redis.io/download), [RabbitMQ](https://www.rabbitmq.com/download.html), [Apache Kafka](https://kafka.apache.org/quickstart), and [PostgreSQL](https://www.postgresql.org/download/windows/).
 
-## Demo
+## Live Deployment
 
 This sample backend is also hosted on Render. You can check out the live demo here: [Node.js Backend Demo](https://mongo-redis-rabbitmq-kafka-elk-backend.onrender.com).
+
+Feel free to explore the backend's routes and read the documentation at [`/docs`](https://mongo-redis-rabbitmq-kafka-elk-backend.onrender.com/docs/).
 
 ## Test Statuses
   [![MongoDB](https://img.shields.io/badge/MongoDB-Passed-brightgreen)](https://www.mongodb.com/)
