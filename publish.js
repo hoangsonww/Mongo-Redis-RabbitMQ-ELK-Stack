@@ -1,6 +1,11 @@
 const amqp = require('amqplib');
 const config = require('./config/config');
 
+/**
+ * Publish a message to RabbitMQ
+ * @param messageContent {string} - The message content to publish
+ * @returns {Promise<void>} - A Promise that resolves when the message is published
+ */
 async function publishMessage(messageContent) {
   try {
     const connection = await amqp.connect(`amqp://${config.rabbitMQHost}`);
@@ -22,4 +27,5 @@ async function publishMessage(messageContent) {
 }
 
 const message = 'This is a test message!';
+
 publishMessage(message);

@@ -50,6 +50,7 @@ seedMongoData();
 // Routes
 app.use('/api', routes);
 
+// Homepage
 app.get('/', (req, res) => {
   const htmlPath = path.join(__dirname, 'views', 'home.html');
 
@@ -75,6 +76,7 @@ startGrpcServer();
 // Server Start
 const PORT = process.env.PORT || 3000;
 
+// Start the server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Visit http://localhost:${PORT}/docs for API documentation`);
