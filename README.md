@@ -520,6 +520,39 @@ The CLI provides a simple way to interact with the backend API and perform vario
   <img src="images/graphiql.png" alt="GraphiQL" style="border-radius: 8px;">
 </p>
 
+- Interact with the API using GraphQL queries and mutations. Examples include:
+
+```graphql
+query {
+  budgets {
+    id
+    name
+    limit
+    createdAt
+  }
+}
+```
+
+Or:
+
+```graphql
+query {
+  expenses(budgetId: "64c9f8f2a73c2f001b3c68f4") {
+    id
+    description
+    amount
+    budgetId
+    createdAt
+  }
+}
+```
+
+When you run these queries, you will receive a response with the requested data. GraphQL provides a flexible and efficient way to fetch and manipulate data from the backend. Here is an example:
+
+<p align="center">
+  <img src="images/graphql.png" alt="GraphQL" style="border-radius: 8px;">
+</p>
+
 ## **NGINX Configuration**
 
 - The `nginx` directory contains an Nginx configuration for reverse proxy and load balancing.
