@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'budget-management-api'
+    static_configs:
+      - targets: ['https://budget-management-backend-api.onrender.com']
+        labels:
+          app: 'budget-management-api'

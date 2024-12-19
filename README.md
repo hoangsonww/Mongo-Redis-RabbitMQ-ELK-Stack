@@ -45,7 +45,7 @@ The Budget Management API is designed to handle complex budget management requir
 
 ## **Live Deployment**
 
-The Budget Management API is deployed live at `https://budget-management-backend-api.onrender.com`.
+The Budget Management API is deployed live at [https://budget-management-backend-api.onrender.com](https://budget-management-backend-api.onrender.com).
 
 You can access the API and test the endpoints directly from the browser. Feel free to use the API for your own projects or applications. Simply add some attribution to the original repository and the creator.
 
@@ -68,6 +68,8 @@ You can access the API and test the endpoints directly from the browser. Feel fr
 [![WebSockets](https://img.shields.io/badge/WebSockets-Connected-brightgreen?logo=websocket&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 [![Nginx](https://img.shields.io/badge/Nginx-Configured-green?logo=nginx&logoColor=white)](https://www.nginx.com/)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-Active-green?logo=openapiinitiative&logoColor=white)](https://www.openapis.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-Active-green?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-Active-green?logo=express&logoColor=white)](https://expressjs.com/)
 
 ## **Technologies Used**
 
@@ -89,6 +91,8 @@ You can access the API and test the endpoints directly from the browser. Feel fr
 | **Docker**          | Containerization for easy deployment.                     |
 | **Kubernetes**      | Orchestrating containerized applications at scale.        |
 | **Nginx**           | Reverse proxy and load balancer.                          |
+| **Prometheus**      | Monitoring and alerting toolkit.                          |
+| **Grafana**         | Observability and visualization platform.                 |
 
 ## **Project Structure**
 
@@ -110,6 +114,7 @@ Budget-Management-Backend-API/
 ├── openapi.yaml              # OpenAPI specification for the API
 ├── package.json              # NPM package configuration file
 ├── start.sh                  # Script to start the application
+├── prometheus.yml            # Prometheus configuration for monitoring
 ├── redis-mongo-flow/         # Directory for Redis-Mongo integration flow
 │   ├── app.js                # Express app for Redis-Mongo flow
 │   ├── config.js             # Configuration for Redis-Mongo flow
@@ -332,6 +337,20 @@ More endpoints and features are available in the API. Refer to the [Swagger docu
 - Load balancing can be configured for multiple instances.
 - SSL termination and caching can be added.
 
+### **Kubernetes**
+- Deployment manifests are available in the `kubernetes` directory.
+- Deploy the application to a Kubernetes cluster using:
+  ```bash
+  kubectl apply -f kubernetes/
+  ```
+  
+### **Prometheus and Grafana**
+- Monitoring and observability tools.
+- Prometheus configuration is available in `prometheus.yml`.
+- Grafana can be used for visualization and monitoring.
+- Metrics and dashboards can be configured.
+- Monitor the health and performance of the API.
+
 ## **Environment Variables**
 
 Ensure your `.env` file looks like this before getting started:
@@ -475,7 +494,7 @@ docker-compose up --build
 1. Create Kubernetes manifests for the services.
 2. Deploy to a cluster:
    ```bash
-   kubectl apply -f k8s/
+   kubectl apply -f kubernetes/
    ```
    
 3. Access the application using the service URL.

@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 // Swagger Setup
-const swaggerOptions = { customSiteTitle: 'Backend API Documentation' };
+const swaggerOptions = { customSiteTitle: 'Budget Management API Documentation' };
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
 
 // MongoDB Connection

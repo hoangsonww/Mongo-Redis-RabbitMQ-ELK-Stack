@@ -15,7 +15,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'https://mongo-redis-rabbitmq-kafka-elk-backend.onrender.com',
+        url: 'https://budget-management-backend-api.onrender.com',
         description: 'Production Server',
       },
       {
