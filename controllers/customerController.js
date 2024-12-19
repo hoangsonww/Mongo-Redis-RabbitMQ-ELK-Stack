@@ -165,7 +165,14 @@ exports.getAllCustomers = async (req, res, next) => {
 exports.getCustomerById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const customer = await Customer.findById(id);
+
+    // Validate if the provided ID is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid customer ID format' });
+    }
+
+    // Cast the id to ObjectId
+    const customer = await Customer.findById(mongoose.Types.ObjectId(id));
 
     if (!customer) {
       return res.status(404).json({ error: 'Customer not found' });
@@ -173,6 +180,7 @@ exports.getCustomerById = async (req, res, next) => {
 
     res.json(customer);
   } catch (error) {
+    console.error("Error retrieving customer by ID:", error);
     next(error);
   }
 };
