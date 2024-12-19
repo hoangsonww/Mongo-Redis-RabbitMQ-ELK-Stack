@@ -23,6 +23,9 @@ app.use(cors()); // Enable All CORS Requests
 // Body Parser Middleware
 app.use(express.json());
 
+// Serve Static Files
+app.use(express.static(path.join(__dirname, 'views')));
+
 // Swagger Setup
 const swaggerOptions = { customSiteTitle: 'Budget Management API Documentation' };
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
