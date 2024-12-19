@@ -102,96 +102,96 @@ You can access the API and test the endpoints directly from the browser. Feel fr
 
 ```plaintext
 Budget-Management-Backend-API/
-├── .env                      # Environment variables configuration
-├── .env.example              # Example environment configuration file
-├── .gitignore                # Git ignore file
-├── .prettierrc               # Prettier configuration for code formatting
-├── LICENSE                   # License information
-├── README.md                 # Documentation for the project
-├── app.test.js               # Main test file for application
-├── cli.js                    # CLI tool for interacting with the backend
-├── docker-compose.yml        # Docker Compose configuration
-├── Dockerfile                # Dockerfile for containerizing the application
-├── grpcServer.js             # gRPC server implementation
-├── index.js                  # Main entry point for the application
-├── nodemon.json              # Nodemon configuration file
-├── openapi.yaml              # OpenAPI specification for the API
-├── package.json              # NPM package configuration file
-├── start.sh                  # Script to start the application
-├── prometheus.yml            # Prometheus configuration for monitoring
-├── redis-mongo-flow/         # Directory for Redis-Mongo integration flow
-│   ├── app.js                # Express app for Redis-Mongo flow
-│   ├── config.js             # Configuration for Redis-Mongo flow
-│   ├── package.json          # NPM configuration for this module
-│   ├── README.md             # Documentation specific to Redis-Mongo flow
-│   ├── seed.js               # Data seeder for Redis-Mongo flow
-│   ├── test.js               # Test file for Redis-Mongo flow
-├── round-robin/              # Directory for round-robin load balancer
-│   ├── config.js             # Configuration for round-robin implementation
-│   ├── index.js              # Main entry point for round-robin logic
-│   ├── README.md             # Documentation for round-robin functionality
-├── proto/                    # Protocol Buffers directory
-│   ├── budget.proto          # gRPC proto file for budgets
-├── nginx/                    # NGINX configuration directory
-│   ├── docker-compose.yml    # Docker Compose for NGINX
-│   ├── Dockerfile            # Dockerfile for NGINX
-│   ├── nginx.conf            # NGINX configuration file
-│   ├── start_nginx.sh        # Script to start NGINX
-│   ├── README.md             # Documentation for NGINX
-├── docs/                     # Documentation directory
-│   ├── swaggerConfig.js      # Swagger configuration for API docs
-├── graphql/                  # GraphQL-related files
-│   ├── schema.js             # GraphQL schema definition
-├── services/                 # Services and utilities
-│   ├── dataSeeder.js         # Seeder for MongoDB
-│   ├── elasticService.js     # Elasticsearch client and utility functions
-│   ├── jwtService.js         # JSON Web Token (JWT) utilities
-│   ├── postgresService.js    # PostgreSQL client and utilities
-│   ├── rabbitMQService.js    # RabbitMQ client and utilities
-│   ├── redisService.js       # Redis client and utilities
-│   ├── websocketService.js   # WebSocket server and utilities
-├── controllers/              # Route controllers for the API
-│   ├── authController.js     # Authentication-related endpoints
-│   ├── budgetController.js   # Budget management endpoints
-│   ├── customerController.js # Customer management endpoints
-│   ├── expenseController.js  # Expense management endpoints
-│   ├── notificationController.js # Notification management endpoints
-│   ├── orderController.js    # Order management endpoints
-│   ├── searchController.js   # Search-related endpoints
-│   ├── taskController.js     # Task management endpoints
-│   ├── transactionController.js # Transaction log endpoints
-│   ├── userController.js     # User profile management endpoints
-├── middleware/               # Middleware utilities
-│   ├── authMiddleware.js     # JWT authentication middleware
-├── models/                   # Mongoose schemas
-│   ├── budget.js             # Schema for budgets
-│   ├── customer.js           # Schema for customers
-│   ├── expense.js            # Schema for expenses
-│   ├── order.js              # Schema for orders
-│   ├── task.js               # Schema for tasks
-│   ├── user.js               # Schema for users
-├── routes/                   # Express router files
-│   ├── authRoutes.js         # Routes for authentication
-│   ├── budgetRoutes.js       # Routes for budgets
-│   ├── customerRoutes.js     # Routes for customers
-│   ├── expenseRoutes.js      # Routes for expenses
-│   ├── graphqlRoutes.js      # Routes for GraphQL
-│   ├── index.js              # Main router entry point
-│   ├── notificationRoutes.js # Routes for notifications
-│   ├── orderRoutes.js        # Routes for orders
-│   ├── searchRoutes.js       # Routes for Elasticsearch
-│   ├── taskRoutes.js         # Routes for tasks
-│   ├── transactionRoutes.js  # Routes for transactions
-│   ├── userRoutes.js         # Routes for user profiles
-├── views/                    # Static assets and templates
+├── .env                           # Environment variables configuration
+├── .env.example                   # Example environment configuration file
+├── .gitignore                     # Git ignore file
+├── .prettierrc                    # Prettier configuration for code formatting
+├── LICENSE                        # License information
+├── README.md                      # Documentation for the project
+├── app.test.js                    # Main test file for application
+├── cli.js                         # CLI tool for interacting with the backend
+├── docker-compose.yml             # Docker Compose configuration
+├── Dockerfile                     # Dockerfile for containerizing the application
+├── grpcServer.js                  # gRPC server implementation
+├── index.js                       # Main entry point for the application
+├── nodemon.json                   # Nodemon configuration file
+├── openapi.yaml                   # OpenAPI specification for the API
+├── package.json                   # NPM package configuration file
+├── start.sh                       # Script to start the application
+├── prometheus.yml                 # Prometheus configuration for monitoring
+├── redis-mongo-flow/              # Directory for Redis-Mongo integration flow
+│   ├── app.js                     # Express app for Redis-Mongo flow
+│   ├── config.js                  # Configuration for Redis-Mongo flow
+│   ├── package.json               # NPM configuration for this module
+│   ├── README.md                  # Documentation specific to Redis-Mongo flow
+│   ├── seed.js                    # Data seeder for Redis-Mongo flow
+│   ├── test.js                    # Test file for Redis-Mongo flow
+├── round-robin/                   # Directory for round-robin load balancer
+│   ├── config.js                  # Configuration for round-robin implementation
+│   ├── index.js                   # Main entry point for round-robin logic
+│   ├── README.md                  # Documentation for round-robin functionality
+├── proto/                         # Protocol Buffers directory
+│   ├── budget.proto               # gRPC proto file for budgets
+├── nginx/                         # NGINX configuration directory
+│   ├── docker-compose.yml         # Docker Compose for NGINX
+│   ├── Dockerfile                 # Dockerfile for NGINX
+│   ├── nginx.conf                 # NGINX configuration file
+│   ├── start_nginx.sh             # Script to start NGINX
+│   ├── README.md                  # Documentation for NGINX
+├── docs/                          # Documentation directory
+│   ├── swaggerConfig.js           # Swagger configuration for API docs
+├── graphql/                       # GraphQL-related files
+│   ├── schema.js                  # GraphQL schema definition
+├── services/                      # Services and utilities
+│   ├── dataSeeder.js              # Seeder for MongoDB
+│   ├── elasticService.js          # Elasticsearch client and utility functions
+│   ├── jwtService.js              # JSON Web Token (JWT) utilities
+│   ├── postgresService.js         # PostgreSQL client and utilities
+│   ├── rabbitMQService.js         # RabbitMQ client and utilities
+│   ├── redisService.js            # Redis client and utilities
+│   ├── websocketService.js        # WebSocket server and utilities
+├── controllers/                   # Route controllers for the API
+│   ├── authController.js          # Authentication-related endpoints
+│   ├── budgetController.js        # Budget management endpoints
+│   ├── customerController.js      # Customer management endpoints
+│   ├── expenseController.js       # Expense management endpoints
+│   ├── notificationController.js  # Notification management endpoints
+│   ├── orderController.js         # Order management endpoints
+│   ├── searchController.js        # Search-related endpoints
+│   ├── taskController.js          # Task management endpoints
+│   ├── transactionController.js   # Transaction log endpoints
+│   ├── userController.js          # User profile management endpoints
+├── middleware/                    # Middleware utilities
+│   ├── authMiddleware.js          # JWT authentication middleware
+├── models/                        # Mongoose schemas
+│   ├── budget.js                  # Schema for budgets
+│   ├── customer.js                # Schema for customers
+│   ├── expense.js                 # Schema for expenses
+│   ├── order.js                   # Schema for orders
+│   ├── task.js                    # Schema for tasks
+│   ├── user.js                    # Schema for users
+├── routes/                        # Express router files
+│   ├── authRoutes.js              # Routes for authentication
+│   ├── budgetRoutes.js            # Routes for budgets
+│   ├── customerRoutes.js          # Routes for customers
+│   ├── expenseRoutes.js           # Routes for expenses
+│   ├── graphqlRoutes.js           # Routes for GraphQL
+│   ├── index.js                   # Main router entry point
+│   ├── notificationRoutes.js      # Routes for notifications
+│   ├── orderRoutes.js             # Routes for orders
+│   ├── searchRoutes.js            # Routes for Elasticsearch
+│   ├── taskRoutes.js              # Routes for tasks
+│   ├── transactionRoutes.js       # Routes for transactions
+│   ├── userRoutes.js              # Routes for user profiles
+├── views/                         # Static assets and templates
 │   ├── android-chrome-192x192.png # Android Chrome app icon
 │   ├── android-chrome-512x512.png # Android Chrome high-res icon
-│   ├── apple-touch-icon.png  # Apple Touch icon
-│   ├── favicon.ico           # Favicon
-│   ├── favicon-16x16.png     # 16x16 favicon
-│   ├── favicon-32x32.png     # 32x32 favicon
-│   ├── home.html             # HTML template for homepage
-│   ├── manifest.json         # Web app manifest
+│   ├── apple-touch-icon.png       # Apple Touch icon
+│   ├── favicon.ico                # Favicon
+│   ├── favicon-16x16.png          # 16x16 favicon
+│   ├── favicon-32x32.png          # 32x32 favicon
+│   ├── home.html                  # HTML template for homepage
+│   ├── manifest.json              # Web app manifest
 ```
 
 ## **Setup Instructions**
