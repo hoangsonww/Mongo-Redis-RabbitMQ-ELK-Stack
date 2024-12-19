@@ -281,7 +281,7 @@ exports.deleteCustomerById = async (req, res, next) => {
   try {
     const { customerId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(customerId)) {
       return res.status(400).json({ error: 'Invalid customer ID format' });
     }
 
@@ -378,7 +378,7 @@ exports.updateCustomerById = async (req, res, next) => {
     const { customerId } = req.params;
     const { name, email, phone } = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(customerId)) {
       return res.status(400).json({ error: 'Invalid customer ID format' });
     }
 
