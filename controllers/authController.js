@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const { generateToken } = require('../services/jwtService');
+const redisClient = require('../services/redisService');
 
 /**
  * @swagger
@@ -149,8 +150,22 @@ exports.login = async (req, res, next) => {
  * @swagger
  * /api/auth/logout:
  *   post:
- *     summary: Logout a user
+ *     summary: Logout a user and invalidate all tokens for the user
  *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The email of the user logging out.
  *     responses:
  *       200:
  *         description: Logout successful.
@@ -161,9 +176,161 @@ exports.login = async (req, res, next) => {
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Logout successful
+ *                   example: "Logout successful. All tokens invalidated."
+ *       404:
+ *         description: User not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "User not found."
+ *       500:
+ *         description: Server error.
  */
-exports.logout = (req, res) => {
-  // Logout is client-side; token can be deleted there
-  res.status(200).json({ message: 'Logout successful' });
+exports.logout = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required to logout' });
+    }
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Invalidate all tokens by adding the user's ID to a Redis blacklist
+    const userId = user._id.toString();
+    const blacklistKey = `blacklist:${userId}`;
+    const tokenExpiry = 60 * 60 * 24 * 7;
+
+    await redisClient.set(blacklistKey, 'true', { EX: tokenExpiry });
+
+    res.status(200).json({ message: 'Logout successful. All tokens invalidated.' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/auth/verify-email:
+ *   post:
+ *     summary: Verify if an email is registered
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The email to verify.
+ *     responses:
+ *       200:
+ *         description: Email verified successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 exists:
+ *                   type: boolean
+ *                   example: true
+ *       404:
+ *         description: Email not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Email not found
+ */
+exports.verifyEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(200).json({ exists: true });
+    }
+
+    res.status(404).json({ error: 'Email not found' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/auth/reset-password:
+ *   post:
+ *     summary: Reset a user's password
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - newPassword
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email address.
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 description: The new password.
+ *     responses:
+ *       200:
+ *         description: Password reset successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Password reset successfully
+ *       404:
+ *         description: User not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: User not found
+ */
+exports.resetPassword = async (req, res, next) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    next(error);
+  }
 };
