@@ -13,7 +13,6 @@ Welcome to the **Budget Management API**, a robust backend application designed 
 7. [CLI Usage](#cli-usage)
 8. [Swagger Documentation](#swagger-documentation)
 9. [Environment Variables](#environment-variables)
-10. [Running with Docker](#running-with-docker)
 11. [Kubernetes Deployment](#kubernetes-deployment)
 12. [GraphQL Integration](#graphql-integration)
 13. [gRPC Integration](#grpc-integration)
@@ -52,6 +51,105 @@ The Budget Management API is designed to handle complex budget management requir
 | **Docker**          | Containerization for easy deployment.                     |
 | **Kubernetes**      | Orchestrating containerized applications at scale.        |
 | **Nginx**           | Reverse proxy and load balancer.                          |
+
+## **Live Deployment**
+
+The Budget Management API is deployed live at `https://budget-manager-api.herokuapp.com`.
+
+## **Project Structure**
+
+```plaintext
+Budget-Management-Backend-API/
+├── .env                      # Environment variables configuration
+├── .env.example              # Example environment configuration file
+├── .gitignore                # Git ignore file
+├── .prettierrc               # Prettier configuration for code formatting
+├── LICENSE                   # License information
+├── README.md                 # Documentation for the project
+├── app.test.js               # Main test file for application
+├── cli.js                    # CLI tool for interacting with the backend
+├── docker-compose.yml        # Docker Compose configuration
+├── Dockerfile                # Dockerfile for containerizing the application
+├── grpcServer.js             # gRPC server implementation
+├── index.js                  # Main entry point for the application
+├── nodemon.json              # Nodemon configuration file
+├── openapi.yaml              # OpenAPI specification for the API
+├── package.json              # NPM package configuration file
+├── start.sh                  # Script to start the application
+├── redis-mongo-flow/         # Directory for Redis-Mongo integration flow
+│   ├── app.js                # Express app for Redis-Mongo flow
+│   ├── config.js             # Configuration for Redis-Mongo flow
+│   ├── package.json          # NPM configuration for this module
+│   ├── README.md             # Documentation specific to Redis-Mongo flow
+│   ├── seed.js               # Data seeder for Redis-Mongo flow
+│   ├── test.js               # Test file for Redis-Mongo flow
+├── round-robin/              # Directory for round-robin load balancer
+│   ├── config.js             # Configuration for round-robin implementation
+│   ├── index.js              # Main entry point for round-robin logic
+│   ├── README.md             # Documentation for round-robin functionality
+├── proto/                    # Protocol Buffers directory
+│   ├── budget.proto          # gRPC proto file for budgets
+├── nginx/                    # NGINX configuration directory
+│   ├── docker-compose.yml    # Docker Compose for NGINX
+│   ├── Dockerfile            # Dockerfile for NGINX
+│   ├── nginx.conf            # NGINX configuration file
+│   ├── start_nginx.sh        # Script to start NGINX
+│   ├── README.md             # Documentation for NGINX
+├── docs/                     # Documentation directory
+│   ├── swaggerConfig.js      # Swagger configuration for API docs
+├── graphql/                  # GraphQL-related files
+│   ├── schema.js             # GraphQL schema definition
+├── services/                 # Services and utilities
+│   ├── dataSeeder.js         # Seeder for MongoDB
+│   ├── elasticService.js     # Elasticsearch client and utility functions
+│   ├── jwtService.js         # JSON Web Token (JWT) utilities
+│   ├── postgresService.js    # PostgreSQL client and utilities
+│   ├── rabbitMQService.js    # RabbitMQ client and utilities
+│   ├── redisService.js       # Redis client and utilities
+│   ├── websocketService.js   # WebSocket server and utilities
+├── controllers/              # Route controllers for the API
+│   ├── authController.js     # Authentication-related endpoints
+│   ├── budgetController.js   # Budget management endpoints
+│   ├── customerController.js # Customer management endpoints
+│   ├── expenseController.js  # Expense management endpoints
+│   ├── notificationController.js # Notification management endpoints
+│   ├── orderController.js    # Order management endpoints
+│   ├── searchController.js   # Search-related endpoints
+│   ├── taskController.js     # Task management endpoints
+│   ├── transactionController.js # Transaction log endpoints
+│   ├── userController.js     # User profile management endpoints
+├── middleware/               # Middleware utilities
+│   ├── authMiddleware.js     # JWT authentication middleware
+├── models/                   # Mongoose schemas
+│   ├── budget.js             # Schema for budgets
+│   ├── customer.js           # Schema for customers
+│   ├── expense.js            # Schema for expenses
+│   ├── order.js              # Schema for orders
+│   ├── task.js               # Schema for tasks
+│   ├── user.js               # Schema for users
+├── routes/                   # Express router files
+│   ├── authRoutes.js         # Routes for authentication
+│   ├── budgetRoutes.js       # Routes for budgets
+│   ├── customerRoutes.js     # Routes for customers
+│   ├── expenseRoutes.js      # Routes for expenses
+│   ├── graphqlRoutes.js      # Routes for GraphQL
+│   ├── index.js              # Main router entry point
+│   ├── notificationRoutes.js # Routes for notifications
+│   ├── orderRoutes.js        # Routes for orders
+│   ├── searchRoutes.js       # Routes for Elasticsearch
+│   ├── taskRoutes.js         # Routes for tasks
+│   ├── transactionRoutes.js  # Routes for transactions
+│   ├── userRoutes.js         # Routes for user profiles
+├── views/                    # Static assets and templates
+│   ├── android-chrome-192x192.png # Android Chrome app icon
+│   ├── android-chrome-512x512.png # Android Chrome high-res icon
+│   ├── apple-touch-icon.png  # Apple Touch icon
+│   ├── favicon.ico           # Favicon
+│   ├── favicon-16x16.png     # 16x16 favicon
+│   ├── favicon-32x32.png     # 32x32 favicon
+│   ├── home.html             # HTML template for homepage
+│   ├── manifest.json         # Web app manifest
+```
 
 ## **Setup Instructions**
 
@@ -261,6 +359,69 @@ Follow these steps to use the CLI:
   <img src="images/swagger.png" alt="Swagger UI" style="border-radius: 8px;">
 </p>
 
+## **GraphQL Integration**
+
+- The Budget Management API supports GraphQL queries and mutations.
+- Access the GraphQL endpoint at `http://localhost:3000/api/graphql`.
+- Use the GraphiQL interface to interact with the API.
+- The GraphiQL interface looks like this:
+
+<p align="center">
+  <img src="images/graphiql.png" alt="GraphiQL" style="border-radius: 8px;">
+</p>
+
+## **NGINX Configuration**
+
+- The `nginx` directory contains an Nginx configuration for reverse proxy and load balancing.
+- Use Nginx to route requests to multiple instances of the API.
+- Configure SSL termination and caching for improved performance.
+- The Nginx configuration looks like this:
+
+```nginx
+server {
+    listen 80;
+    server_name localhost;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+- For more information, refer to the [Nginx documentation](https://nginx.org/en/docs/) and the [Nginx Directory](nginx/README.md).
+
+## **gRPC Integration**
+
+The Budget Management API includes gRPC support for high-performance RPCs.
+
+## **gRPC Integration**
+
+The Budget Management API includes support for **gRPC** to enable high-performance remote procedure calls.
+
+### **Getting Started**
+
+1. **Start the gRPC Server**:
+   Run the following command:
+   ```bash
+   node grpcServer.js
+   ```
+
+2. **Use the gRPC Client**:
+   Execute the client to interact with the server:
+   ```bash
+   node grpcClient.js
+   ```
+
+3. **Proto File**:
+   The `.proto` file for defining gRPC services and messages is located in the `protos` directory.
+
+That's it! Your gRPC server and client should now be operational. 🚀
+
 ## **Dockerization**
 
 The Budget Management API can be run in a Docker container for easy deployment and scaling.
@@ -278,6 +439,20 @@ docker-compose up --build
    ```bash
    kubectl apply -f k8s/
    ```
+   
+3. Access the application using the service URL.
+
+## **Testing**
+
+The Budget Management API includes unit tests for all endpoints and services.
+
+To run the tests, use the following command:
+
+```bash
+npm test
+```
+
+The test results will be displayed in the console.
 
 ## **Contributing**
 
