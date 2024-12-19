@@ -24,13 +24,10 @@ Below is a comprehensive guide to setting up, running, and utilizing this API.
 14. [gRPC Integration](#grpc-integration)
 15. [Dockerization](#dockerization)
 16. [Kubernetes Deployment](#kubernetes-deployment)
-17. [GraphQL Integration](#graphql-integration)
-18. [gRPC Integration](#grpc-integration)
-19. [Dockerization](#dockerization)
-20. [Kubernetes Deployment](#kubernetes-deployment)
-21. [Testing](#testing)
-22. [Continuous Integration and Deployment with Jenkins](#continuous-integration-and-deployment-with-jenkins)
-23. [Contributing](#contributing)
+17. [Continuous Integration and Deployment with Jenkins](#continuous-integration-and-deployment-with-jenkins)
+18. [Testing](#testing)
+19. [Contributing](#contributing)
+20. [Author](#author)
 
 ## **Overview**
 
@@ -592,6 +589,14 @@ Contributions are welcome! Please fork the repository, create a feature branch, 
 3. Make changes and commit them (`git commit -am 'Add new feature'`).
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a new pull request. We will review your changes and merge them if they look good.
+
+## **Author**
+
+- **Son Nguyen** - [hoangsonww](https://github.com/hoangsonww)
+- **Website:** [https://sonnguyenhoang.com](https://sonnguyenhoang.com)
+- **Email:** [hoangson091104@gmail.com](mailto:hoangson091104@gmail.com)
+- **LinkedIn:** [https://www.linkedin.com/in/hoangsonw](https://www.linkedin.com/in/hoangsonw)
+- Feel free to reach out if you have any questions or feedback! 🚀
 
 ---
 
