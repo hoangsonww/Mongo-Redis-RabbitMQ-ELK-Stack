@@ -15,12 +15,12 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Local Development Server',
-      },
-      {
         url: 'https://mongo-redis-rabbitmq-kafka-elk-backend.onrender.com',
         description: 'Production Server',
+      },
+      {
+        url: 'http://localhost:3000',
+        description: 'Local Development Server',
       },
     ],
     components: {

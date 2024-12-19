@@ -1,23 +1,35 @@
 # **Budget Management Backend API**
 
-Welcome to the **Budget Management API**, a robust backend application designed to manage budgets, expenses, users, orders, notifications, and more. This API integrates cutting-edge technologies and supports advanced features like gRPC, GraphQL, WebSockets, Elasticsearch, PostgreSQL, MySQL, Redis, RabbitMQ, Kafka, and Docker. Below is a comprehensive guide to setting up, running, and utilizing this API.
+Welcome to the **Budget Management API**, a robust backend application designed to manage budgets, expenses, users, orders, notifications, and more. This API integrates cutting-edge technologies and supports advanced features like gRPC, GraphQL, WebSockets, Elasticsearch, PostgreSQL, MySQL, Redis, RabbitMQ, Kafka, and Docker. 
+
+Moreover, it also includes a CLI tool for interacting with the backend and a comprehensive Swagger documentation for testing and exploring the API.
+
+Below is a comprehensive guide to setting up, running, and utilizing this API. The purpose of this API is to demonstrate the capabilities of modern backend technologies and provide a foundation for building scalable, real-time applications.
 
 ## **Table of Contents**
 
 1. [Overview](#overview)
-2. [Technologies Used](#technologies-used)
-3. [Setup Instructions](#setup-instructions)
-4. [Available Endpoints](#available-endpoints)
-5. [Schemas](#schemas)
-6. [Features and Integrations](#features-and-integrations)
-7. [CLI Usage](#cli-usage)
-8. [Swagger Documentation](#swagger-documentation)
+2. [Live Deployment](#live-deployment)
+3. [Technologies Used](#technologies-used)
+4. [Project Structure](#project-structure)
+5. [Setup Instructions](#setup-instructions)
+6. [Available Endpoints](#available-endpoints)
+7. [Schemas](#schemas)
+8. [Features and Integrations](#features-and-integrations)
 9. [Environment Variables](#environment-variables)
-11. [Kubernetes Deployment](#kubernetes-deployment)
+10. [CLI Usage](#cli-usage)
+11. [Swagger Documentation](#swagger-documentation)
 12. [GraphQL Integration](#graphql-integration)
-13. [gRPC Integration](#grpc-integration)
-14. [Testing](#testing)
-15. [Contributing](#contributing)
+13. [NGINX Configuration](#nginx-configuration)
+14. [gRPC Integration](#grpc-integration)
+15. [Dockerization](#dockerization)
+16. [Kubernetes Deployment](#kubernetes-deployment)
+17. [GraphQL Integration](#graphql-integration)
+18. [gRPC Integration](#grpc-integration)
+19. [Dockerization](#dockerization)
+20. [Kubernetes Deployment](#kubernetes-deployment)
+21. [Testing](#testing)
+22. [Contributing](#contributing)
 
 ## **Overview**
 
@@ -30,6 +42,32 @@ The Budget Management API is designed to handle complex budget management requir
 - Advanced search capabilities with Elasticsearch.
 - CLI operations for direct interaction with the system.
 - Compatibility with modern cloud environments like Docker and Kubernetes.
+
+## **Live Deployment**
+
+The Budget Management API is deployed live at `https://budget-management-backend-api.onrender.com`.
+
+You can access the API and test the endpoints directly from the browser. Feel free to use the API for your own projects or applications. Simply add some attribution to the original repository and the creator.
+
+> Note: Be mindful of the rate limits and usage policies when testing the live API. Additionally, because the API is hosted on the free plan of Render, it may take a while (1-2 minutes) to wake up if it has been inactive for some time. Kindly be patient during this process!
+
+### Deployment and Technology Status
+
+[![API Status](https://img.shields.io/website?label=API%20Status&url=https%3A%2F%2Fbudget-management-backend-api.onrender.com)](https://budget-management-backend-api.onrender.com)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Connected-brightgreen?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Redis](https://img.shields.io/badge/Redis-Connected-red?logo=redis&logoColor=white)](https://redis.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Connected-blue?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Connected-orange?logo=rabbitmq&logoColor=white)](https://www.rabbitmq.com/)
+[![Kafka](https://img.shields.io/badge/Kafka-Connected-black?logo=apachekafka&logoColor=white)](https://kafka.apache.org/)
+[![Elasticsearch](https://img.shields.io/badge/Elasticsearch-Connected-yellow?logo=elasticsearch&logoColor=white)](https://www.elastic.co/elasticsearch/)
+[![gRPC](https://img.shields.io/badge/gRPC-Operational-purple?logo=grpc&logoColor=white)](https://grpc.io/)
+[![GraphQL](https://img.shields.io/badge/GraphQL-Operational-pink?logo=graphql&logoColor=white)](https://graphql.org/)
+[![Swagger Docs](https://img.shields.io/badge/Swagger%20Docs-Available-brightgreen?logo=swagger&logoColor=white)](https://budget-management-backend-api.onrender.com/docs)
+[![Docker](https://img.shields.io/badge/Docker-Configured-blue?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Ready-blue?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![WebSockets](https://img.shields.io/badge/WebSockets-Connected-brightgreen?logo=websocket&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+[![Nginx](https://img.shields.io/badge/Nginx-Configured-green?logo=nginx&logoColor=white)](https://www.nginx.com/)
+[![OpenAPI](https://img.shields.io/badge/OpenAPI-Active-green?logo=openapiinitiative&logoColor=white)](https://www.openapis.org/)
 
 ## **Technologies Used**
 
@@ -51,10 +89,6 @@ The Budget Management API is designed to handle complex budget management requir
 | **Docker**          | Containerization for easy deployment.                     |
 | **Kubernetes**      | Orchestrating containerized applications at scale.        |
 | **Nginx**           | Reverse proxy and load balancer.                          |
-
-## **Live Deployment**
-
-The Budget Management API is deployed live at `https://budget-manager-api.herokuapp.com`.
 
 ## **Project Structure**
 
@@ -163,8 +197,8 @@ Budget-Management-Backend-API/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/budget-manager-api.git
-   cd budget-manager-api
+   git clone https://github.com/hoangsonww/Budget-Management-Backend-API.git
+   cd Budget-Management-Backend-API
    ```
 
 2. Install dependencies:
@@ -209,6 +243,14 @@ Budget-Management-Backend-API/
 | `/api/graphql`         | POST       | Perform a GraphQL query.                 |
 | `/api/notifications`   | POST       | Send a real-time notification.           |
 | `/api/search/expenses` | POST       | Search for expenses using Elasticsearch. |
+
+Additionally, the root `/` endpoint provides a welcome message and information about the API.
+
+<p align="center">
+  <img src="images/home.png" alt="Available Endpoints" style="border-radius: 8px;">
+</p>
+
+More endpoints and features are available in the API. Refer to the [Swagger documentation](https://budget-management-backend-api.onrender.com/docs) for detailed information.
 
 ## **Schemas**
 
@@ -397,10 +439,6 @@ server {
 
 ## **gRPC Integration**
 
-The Budget Management API includes gRPC support for high-performance RPCs.
-
-## **gRPC Integration**
-
 The Budget Management API includes support for **gRPC** to enable high-performance remote procedure calls.
 
 ### **Getting Started**
@@ -456,10 +494,20 @@ The test results will be displayed in the console.
 
 ## **Contributing**
 
-Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request.
+Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make changes and commit them (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new pull request. We will review your changes and merge them if they look good.
 
 ---
 
-Thank you for using the **Budget Management API**. For questions, feedback, or support, please open an issue or contact me!
+Thank you for using the **Budget Management API**. For questions, feedback, or support, please open an issue or [contact me directly](mailto:hoangson091104@gmail.com).
 
 Created with ❤️ by [Son Nguyen](https://sonnguyenhoang.com) in 2024. All rights reserved.
+
+---
+
+[⬆️ Back to Top](#budget-management-backend-api)
