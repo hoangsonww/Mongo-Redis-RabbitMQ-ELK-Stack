@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon index.js",
     "dev": "nodemon index.js",
+    "api": "nodemon index.js",
+    "cli": "node cli.js",
+    "backend": "nodemon index.js",
     "install-deps": "npm install",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:watch": "jest --watchAll",

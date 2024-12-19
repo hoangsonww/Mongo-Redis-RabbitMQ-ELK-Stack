@@ -191,11 +191,7 @@ exports.updateProfile = async (req, res, next) => {
       return res.status(400).json({ error: 'At least one field (username or email) must be provided for update' });
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      decoded.userId,
-      { username, email },
-      { new: true, runValidators: true }
-    ).select('-password');
+    const updatedUser = await User.findByIdAndUpdate(decoded.userId, { username, email }, { new: true, runValidators: true }).select('-password');
 
     if (!updatedUser) return res.status(404).json({ error: 'User not found' });
 
@@ -214,7 +210,7 @@ exports.updateProfile = async (req, res, next) => {
       // Handle Mongoose validation errors
       return res.status(400).json({
         error: 'Validation error',
-        details: Object.values(error.errors).map((err) => err.message),
+        details: Object.values(error.errors).map(err => err.message),
       });
     }
 
@@ -357,11 +353,7 @@ exports.patchProfile = async (req, res, next) => {
       return res.status(400).json({ error: 'No fields provided to update' });
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      decoded.userId,
-      updates,
-      { new: true, runValidators: true }
-    ).select('-password');
+    const updatedUser = await User.findByIdAndUpdate(decoded.userId, updates, { new: true, runValidators: true }).select('-password');
 
     if (!updatedUser) return res.status(404).json({ error: 'User not found' });
 
@@ -380,7 +372,7 @@ exports.patchProfile = async (req, res, next) => {
       // Handle validation errors
       return res.status(400).json({
         error: 'Validation error',
-        details: Object.values(error.errors).map((err) => err.message),
+        details: Object.values(error.errors).map(err => err.message),
       });
     }
 
