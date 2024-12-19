@@ -4,7 +4,7 @@ Welcome to the **Budget Management API**, a robust backend application designed 
 
 Moreover, it also includes a CLI tool for interacting with the backend and a comprehensive Swagger documentation for testing and exploring the API.
 
-Below is a comprehensive guide to setting up, running, and utilizing this API. The purpose of this API is to demonstrate the capabilities of modern backend technologies and provide a foundation for building scalable, real-time applications.
+Below is a comprehensive guide to setting up, running, and utilizing this API.
 
 ## **Table of Contents**
 
@@ -29,7 +29,8 @@ Below is a comprehensive guide to setting up, running, and utilizing this API. T
 19. [Dockerization](#dockerization)
 20. [Kubernetes Deployment](#kubernetes-deployment)
 21. [Testing](#testing)
-22. [Contributing](#contributing)
+22. [Continuous Integration and Deployment with Jenkins](#continuous-integration-and-deployment-with-jenkins)
+23. [Contributing](#contributing)
 
 ## **Overview**
 
@@ -42,6 +43,8 @@ The Budget Management API is designed to handle complex budget management requir
 - Advanced search capabilities with Elasticsearch.
 - CLI operations for direct interaction with the system.
 - Compatibility with modern cloud environments like Docker and Kubernetes.
+
+The purpose of this API is to demonstrate the capabilities of modern backend technologies and provide a foundation for building scalable, real-time applications. It can be used as a reference for developers looking to implement similar features in their projects. Simply clone the repository, set up the environment, and start building the frontend or additional functionality on top of the existing API! 
 
 ## **Live Deployment**
 
@@ -68,6 +71,9 @@ You can access the API and test the endpoints directly from the browser. Feel fr
 [![WebSockets](https://img.shields.io/badge/WebSockets-Connected-brightgreen?logo=websocket&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 [![Nginx](https://img.shields.io/badge/Nginx-Configured-green?logo=nginx&logoColor=white)](https://www.nginx.com/)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-Active-green?logo=openapiinitiative&logoColor=white)](https://www.openapis.org/)
+[![Jenkins CI/CD](https://img.shields.io/badge/Jenkins%20CI%2FCD-Configured-blue?logo=jenkins&logoColor=white)](https://www.jenkins.io/)
+[![Prometheus](https://img.shields.io/badge/Prometheus-Configured-blue?logo=prometheus&logoColor=white)](https://prometheus.io/)
+[![Grafana](https://img.shields.io/badge/Grafana-Configured-blue?logo=grafana&logoColor=white)](https://grafana.com/)
 [![Node.js](https://img.shields.io/badge/Node.js-Active-green?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-Active-green?logo=express&logoColor=white)](https://expressjs.com/)
 
@@ -93,6 +99,7 @@ You can access the API and test the endpoints directly from the browser. Feel fr
 | **Nginx**           | Reverse proxy and load balancer.                          |
 | **Prometheus**      | Monitoring and alerting toolkit.                          |
 | **Grafana**         | Observability and visualization platform.                 |
+| **Jenkins**         | CI/CD pipeline for automated testing and deployment.      |
 
 ## **Project Structure**
 
@@ -498,6 +505,24 @@ docker-compose up --build
    ```
    
 3. Access the application using the service URL.
+
+## **Continuous Integration and Deployment with Jenkins**
+
+The Budget Management API includes a Jenkins pipeline for continuous integration and deployment.
+
+1. **Pipeline Configuration:** The `Jenkinsfile` defines the CI/CD pipeline stages, including code checkout, dependency installation, testing, building, and deployment. Add it to the root of the project.
+
+2. **Job Setup:** Create a pipeline job in Jenkins, point it to the repository, and configure it to use the `Jenkinsfile`.
+
+3. **Automated Testing:** The pipeline runs `npm test` to ensure all tests pass before proceeding to the build or deployment stages.
+
+4. **Environment Variables:** Use Jenkins environment variables to securely manage secrets like API keys and credentials for services such as MongoDB, Redis, or Render.
+
+5. **Deployment:** The pipeline supports deploying the application using Render or directly to a server using SSH and PM2.
+
+6. **Webhooks:** Integrate GitHub/GitLab webhooks to trigger builds automatically on code changes.
+
+7. **Notifications:** Add Slack or email notifications in the pipeline to inform team members about build and deployment statuses.
 
 ## **Testing**
 
