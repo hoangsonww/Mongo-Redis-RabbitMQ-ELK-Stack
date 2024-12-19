@@ -93,7 +93,8 @@ exports.addExpense = async (req, res, next) => {
 
     // Check if the Elasticsearch index exists
     const indexExists = await esClient.indices.exists({ index: 'expenses' });
-    if (!indexExists) { // Check if the index does NOT exist
+    if (!indexExists) {
+      // Check if the index does NOT exist
       console.log('Creating Elasticsearch index with correct mapping...');
       await esClient.indices.create({
         index: 'expenses',
@@ -238,6 +239,165 @@ exports.getExpensesByBudget = async (req, res, next) => {
 
     res.status(200).json({ expenses, source: 'database' });
   } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/expenses/{id}:
+ *   delete:
+ *     summary: Delete an expense by ID
+ *     tags: [Expenses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the expense to delete.
+ *     responses:
+ *       200:
+ *         description: Expense deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Expense deleted successfully
+ *       404:
+ *         description: Expense not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Expense not found
+ *       500:
+ *         description: Server error.
+ */
+exports.deleteExpenseById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid expense ID format' });
+    }
+
+    const expense = await Expense.findByIdAndDelete(id);
+
+    if (!expense) {
+      return res.status(404).json({ error: 'Expense not found' });
+    }
+
+    // Remove from Elasticsearch
+    await esClient.delete({ index: 'expenses', id });
+
+    // Remove from Redis cache if applicable
+    const cachedBudget = await redisClient.get(`expenses:${expense.budgetId}`);
+    if (cachedBudget) {
+      const expenses = JSON.parse(cachedBudget).filter(exp => exp._id !== id);
+      await redisClient.set(`expenses:${expense.budgetId}`, JSON.stringify(expenses));
+    }
+
+    res.status(200).json({ message: 'Expense deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting expense:', error);
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/expenses/{id}:
+ *   put:
+ *     summary: Update an expense by ID
+ *     tags: [Expenses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the expense to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               description:
+ *                 type: string
+ *                 description: The new description of the expense.
+ *               amount:
+ *                 type: number
+ *                 description: The new amount of the expense.
+ *     responses:
+ *       200:
+ *         description: Expense updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Expense updated successfully
+ *                 expense:
+ *                   type: object
+ *       404:
+ *         description: Expense not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Expense not found
+ *       500:
+ *         description: Server error.
+ */
+exports.updateExpenseById = async (req, res, next) => {
+  const { id } = req.params;
+  const { description, amount } = req.body;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid expense ID format' });
+    }
+
+    const updatedExpense = await Expense.findByIdAndUpdate(id, { description, amount }, { new: true, runValidators: true });
+
+    if (!updatedExpense) {
+      return res.status(404).json({ error: 'Expense not found' });
+    }
+
+    // Update Elasticsearch
+    await esClient.update({
+      index: 'expenses',
+      id,
+      doc: {
+        description: updatedExpense.description,
+        amount: updatedExpense.amount,
+      },
+    });
+
+    // Update Redis cache if applicable
+    const cachedBudget = await redisClient.get(`expenses:${updatedExpense.budgetId}`);
+    if (cachedBudget) {
+      const expenses = JSON.parse(cachedBudget).map(exp => (exp._id === id ? updatedExpense : exp));
+      await redisClient.set(`expenses:${updatedExpense.budgetId}`, JSON.stringify(expenses));
+    }
+
+    res.status(200).json({ message: 'Expense updated successfully', expense: updatedExpense });
+  } catch (error) {
+    console.error('Error updating expense:', error);
     next(error);
   }
 };

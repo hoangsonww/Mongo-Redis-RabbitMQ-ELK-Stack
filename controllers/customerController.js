@@ -120,7 +120,7 @@ exports.createCustomer = async (req, res, next) => {
     if (error.name === 'ValidationError') {
       return res.status(400).json({
         error: 'Validation error',
-        details: Object.values(error.errors).map((err) => err.message),
+        details: Object.values(error.errors).map(err => err.message),
       });
     }
 
@@ -236,6 +236,169 @@ exports.getCustomerById = async (req, res, next) => {
     res.json(customer);
   } catch (error) {
     console.error('Error retrieving customer:', error);
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/customers/{id}:
+ *   delete:
+ *     summary: Delete a customer by ID
+ *     tags: [Customers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the customer to delete.
+ *     responses:
+ *       200:
+ *         description: Customer deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Customer deleted successfully.
+ *       404:
+ *         description: Customer not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Customer not found.
+ *       500:
+ *         description: Server error.
+ */
+exports.deleteCustomerById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid customer ID format' });
+    }
+
+    const customer = await Customer.findByIdAndDelete(id);
+
+    if (!customer) {
+      return res.status(404).json({ error: 'Customer not found' });
+    }
+
+    res.status(200).json({ message: 'Customer deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting customer:', error);
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/customers/{id}:
+ *   put:
+ *     summary: Update a customer by ID
+ *     tags: [Customers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the customer to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The updated name of the customer.
+ *                 example: "Jane Doe"
+ *               email:
+ *                 type: string
+ *                 description: The updated email of the customer.
+ *                 format: email
+ *                 example: "jane.doe@example.com"
+ *               phone:
+ *                 type: string
+ *                 description: The updated phone number of the customer.
+ *                 example: "+987654321"
+ *     responses:
+ *       200:
+ *         description: Customer updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Customer updated successfully.
+ *                 customer:
+ *                   type: object
+ *       400:
+ *         description: Validation error or invalid ID format.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Validation error.
+ *                 details:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example:
+ *                     - "Name is required."
+ *       404:
+ *         description: Customer not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Customer not found.
+ *       500:
+ *         description: Server error.
+ */
+exports.updateCustomerById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, email, phone } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid customer ID format' });
+    }
+
+    const updatedCustomer = await Customer.findByIdAndUpdate(id, { name, email, phone }, { new: true, runValidators: true });
+
+    if (!updatedCustomer) {
+      return res.status(404).json({ error: 'Customer not found' });
+    }
+
+    res.status(200).json({ message: 'Customer updated successfully', customer: updatedCustomer });
+  } catch (error) {
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: Object.values(error.errors).map(err => err.message),
+      });
+    }
+
+    console.error('Error updating customer:', error);
     next(error);
   }
 };

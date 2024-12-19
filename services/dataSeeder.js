@@ -58,7 +58,7 @@ module.exports = async () => {
           sampleExpenses.push({
             budgetId: budgets[i]._id,
             description: `Expense ${j} for ${budgets[i].name}`,
-            amount: Math.floor(Math.random() * budgets[i].limit / 10) + 50, // Random amount within budget
+            amount: Math.floor((Math.random() * budgets[i].limit) / 10) + 50, // Random amount within budget
           });
         }
       }
@@ -107,12 +107,7 @@ module.exports = async () => {
       `;
 
       for (const transaction of seedTransactions) {
-        await pool.query(query, [
-          transaction.userId,
-          transaction.description,
-          transaction.amount,
-          transaction.budgetId,
-        ]);
+        await pool.query(query, [transaction.userId, transaction.description, transaction.amount, transaction.budgetId]);
       }
 
       console.log('Transactions seeded into PostgreSQL.');

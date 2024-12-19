@@ -143,11 +143,7 @@ exports.updateProfile = async (req, res, next) => {
     const decoded = verifyToken(token);
 
     const { username, email } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(
-      decoded.userId,
-      { username, email },
-      { new: true, runValidators: true }
-    ).select('-password');
+    const updatedUser = await User.findByIdAndUpdate(decoded.userId, { username, email }, { new: true, runValidators: true }).select('-password');
 
     if (!updatedUser) return res.status(404).json({ error: 'User not found' });
 

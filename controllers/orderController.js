@@ -195,3 +195,104 @@ exports.deleteOrder = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @swagger
+ * /api/orders/{id}:
+ *   put:
+ *     summary: Update an order by ID
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the order to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               customerId:
+ *                 type: string
+ *                 description: The ID of the customer who placed the order.
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     productId:
+ *                       type: string
+ *                       description: The ID of the product ordered.
+ *                     quantity:
+ *                       type: number
+ *                       description: The quantity of the product ordered.
+ *     responses:
+ *       200:
+ *         description: Order updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Order updated successfully.
+ *                 order:
+ *                   type: object
+ *       404:
+ *         description: Order not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Order not found.
+ *       500:
+ *         description: Server error.
+ */
+exports.updateOrder = async (req, res, next) => {
+  const { id } = req.params;
+  const { customerId, items } = req.body;
+
+  try {
+    if (!customerId && (!items || items.length === 0)) {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: 'Provide at least one field to update: customerId or items.',
+      });
+    }
+
+    const updateData = {};
+    if (customerId) updateData.customerId = customerId;
+    if (items) {
+      const amount = items.reduce((total, item) => {
+        if (!item.productId || !item.quantity) {
+          throw new Error('Each item must have a productId and quantity.');
+        }
+        return total + item.quantity;
+      }, 0);
+      updateData.items = items;
+      updateData.amount = amount;
+    }
+
+    const updatedOrder = await Order.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedOrder) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    res.status(200).json({ message: 'Order updated successfully', order: updatedOrder });
+  } catch (error) {
+    console.error('Error updating order:', error);
+    next(error);
+  }
+};

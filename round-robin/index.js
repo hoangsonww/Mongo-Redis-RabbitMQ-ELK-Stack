@@ -35,11 +35,7 @@ function startBackendServer(port) {
 [5001, 5002, 5003].forEach(port => startBackendServer(port));
 
 // Round Robin Load Balancing
-const serverInstances = [
-  { url: 'http://localhost:5001' },
-  { url: 'http://localhost:5002' },
-  { url: 'http://localhost:5003' },
-];
+const serverInstances = [{ url: 'http://localhost:5001' }, { url: 'http://localhost:5002' }, { url: 'http://localhost:5003' }];
 
 let currentInstanceIndex = 0;
 
@@ -76,15 +72,17 @@ setInterval(() => {
   const instance = getNextServerInstance();
   console.log(`Sending test request to: ${instance.url}`);
 
-  http.get(instance.url, res => {
-    let data = '';
-    res.on('data', chunk => {
-      data += chunk;
+  http
+    .get(instance.url, res => {
+      let data = '';
+      res.on('data', chunk => {
+        data += chunk;
+      });
+      res.on('end', () => {
+        console.log(`Response from ${instance.url}:`, data);
+      });
+    })
+    .on('error', err => {
+      console.error(`Error connecting to ${instance.url}:`, err.message);
     });
-    res.on('end', () => {
-      console.log(`Response from ${instance.url}:`, data);
-    });
-  }).on('error', err => {
-    console.error(`Error connecting to ${instance.url}:`, err.message);
-  });
 }, 5000); // Send a request every 5 seconds

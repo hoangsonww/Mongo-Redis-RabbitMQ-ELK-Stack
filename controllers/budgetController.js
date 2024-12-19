@@ -179,3 +179,164 @@ exports.getAllBudgets = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @swagger
+ * /api/budgets/{id}:
+ *   delete:
+ *     summary: Delete a budget by ID
+ *     tags: [Budgets]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the budget to delete.
+ *     responses:
+ *       200:
+ *         description: Budget deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Budget deleted successfully.
+ *       404:
+ *         description: Budget not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Budget not found
+ *       500:
+ *         description: Server error.
+ */
+exports.deleteBudget = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    // Attempt to delete the budget
+    const deletedBudget = await Budget.findByIdAndDelete(id);
+    if (!deletedBudget) {
+      return res.status(404).json({ error: 'Budget not found' });
+    }
+
+    // Remove from Redis cache
+    await redisClient.del(`budget:${id}`);
+
+    res.status(200).json({ message: 'Budget deleted successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/budgets/{id}:
+ *   put:
+ *     summary: Update a budget by ID
+ *     tags: [Budgets]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the budget to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The updated name of the budget.
+ *                 example: "Updated Travel Budget"
+ *               limit:
+ *                 type: number
+ *                 description: The updated spending limit of the budget.
+ *                 example: 2500
+ *     responses:
+ *       200:
+ *         description: Budget updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Budget updated successfully.
+ *                 budget:
+ *                   type: object
+ *       400:
+ *         description: Validation error or invalid ID format.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Validation error.
+ *                 details:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example:
+ *                     - "Limit must be a number."
+ *       404:
+ *         description: Budget not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Budget not found.
+ *       500:
+ *         description: Server error.
+ */
+exports.updateBudget = async (req, res, next) => {
+  const { id } = req.params;
+  const { name, limit } = req.body;
+
+  try {
+    // Validate ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid budget ID format' });
+    }
+
+    // Update the budget
+    const updatedBudget = await Budget.findByIdAndUpdate(id, { name, limit }, { new: true, runValidators: true });
+
+    if (!updatedBudget) {
+      return res.status(404).json({ error: 'Budget not found' });
+    }
+
+    // Update Redis cache
+    await redisClient.set(`budget:${id}`, JSON.stringify(updatedBudget));
+
+    res.status(200).json({ message: 'Budget updated successfully', budget: updatedBudget });
+  } catch (error) {
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: Object.values(error.errors).map(err => err.message),
+      });
+    }
+
+    console.error('Error updating budget:', error);
+    next(error);
+  }
+};

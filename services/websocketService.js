@@ -2,10 +2,10 @@ const WebSocket = require('ws');
 
 let wss;
 
-exports.initializeWebSocket = (server) => {
+exports.initializeWebSocket = server => {
   wss = new WebSocket.Server({ server });
 
-  wss.on('connection', (ws) => {
+  wss.on('connection', ws => {
     console.log('New WebSocket connection established.');
 
     ws.isAlive = true;
@@ -14,7 +14,7 @@ exports.initializeWebSocket = (server) => {
       ws.isAlive = true;
     });
 
-    ws.on('message', (message) => {
+    ws.on('message', message => {
       console.log('Message received:', message);
     });
 
@@ -25,7 +25,7 @@ exports.initializeWebSocket = (server) => {
 
   // Ping clients every 30 seconds
   const interval = setInterval(() => {
-    wss.clients.forEach((ws) => {
+    wss.clients.forEach(ws => {
       if (!ws.isAlive) {
         console.log('Terminating inactive WebSocket connection.');
         return ws.terminate();
@@ -43,9 +43,9 @@ exports.initializeWebSocket = (server) => {
   console.log('WebSocket server initialized.');
 };
 
-exports.broadcastNotification = (message) => {
+exports.broadcastNotification = message => {
   if (wss) {
-    wss.clients.forEach((client) => {
+    wss.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(message));
       }

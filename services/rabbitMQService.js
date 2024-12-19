@@ -18,7 +18,7 @@ const connectToRabbitMQ = async () => {
     connection = await amqp.connect(config.rabbitMQUrl);
 
     // Handle connection-level errors
-    connection.on('error', (err) => {
+    connection.on('error', err => {
       console.error('RabbitMQ Connection Error:', err.message);
       setTimeout(connectToRabbitMQ, RETRY_INTERVAL); // Reconnect on error
     });
@@ -37,14 +37,14 @@ const connectToRabbitMQ = async () => {
     console.log('RabbitMQ Connected and Channel Created');
 
     // Consume messages from the queue
-    rabbitChannel.consume(queue, async (msg) => {
+    rabbitChannel.consume(queue, async msg => {
       if (msg) {
         const taskData = JSON.parse(msg.content.toString());
         console.log(`Processing task: ${taskData.taskId}`);
 
         try {
           // Simulate task processing
-          await new Promise((resolve) => setTimeout(resolve, 5000));
+          await new Promise(resolve => setTimeout(resolve, 5000));
 
           // Update task in MongoDB
           await Task.findByIdAndUpdate(taskData.taskId, { status: 'completed' });
@@ -62,7 +62,7 @@ const connectToRabbitMQ = async () => {
     });
 
     // Handle channel errors
-    rabbitChannel.on('error', (err) => {
+    rabbitChannel.on('error', err => {
       console.error('RabbitMQ Channel Error:', err.message);
     });
 

@@ -21,7 +21,7 @@ const connectToRedis = async () => {
     });
 
     // Event: Socket closed unexpectedly
-    redisClient.on('error', (err) => {
+    redisClient.on('error', err => {
       console.warn('Redis Error:', err.message);
     });
 

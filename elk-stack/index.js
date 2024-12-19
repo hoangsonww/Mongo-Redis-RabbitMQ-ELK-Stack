@@ -1,5 +1,5 @@
 const { Client } = require('@elastic/elasticsearch');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 // Configuration
 const elasticsearchNode = 'http://localhost:9200';

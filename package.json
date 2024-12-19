@@ -10,7 +10,7 @@
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
-    "format": "prettier --config .prettierrc --write \"index.js\" \"config.js\" \"publish.js\" \"elk-stack/*.{html,css,js,jsx,ts,tsx}\" \"postgresql/*.{html,css,js,jsx,ts,tsx}\" \"redis-mongo-flow/*.{html,css,js,jsx,ts,tsx}\" \"round-robin/*.{html,css,js,jsx,ts,tsx}\" \"routes/*.{html,css,js,jsx,ts,tsx}\""
+    "format": "prettier --config .prettierrc --write \"**/*.{js,ts,json}\""
   },
   "keywords": [
     "mongo",

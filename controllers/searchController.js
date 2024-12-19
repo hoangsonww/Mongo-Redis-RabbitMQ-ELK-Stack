@@ -112,7 +112,7 @@ exports.searchExpenses = async (req, res, next) => {
         query: {
           bool: {
             should: [
-              { term: { "description.keyword": query } }, // Exact match
+              { term: { 'description.keyword': query } }, // Exact match
               { match: { description: query } }, // Partial match
               { match: { budgetId: query } }, // Match by budgetId
             ],
@@ -133,7 +133,7 @@ exports.searchExpenses = async (req, res, next) => {
       total: result.hits.total.value,
       page,
       size,
-      expenses: result.hits.hits.map((hit) => hit._source),
+      expenses: result.hits.hits.map(hit => hit._source),
     });
   } catch (error) {
     console.error('Elasticsearch search error:', error);

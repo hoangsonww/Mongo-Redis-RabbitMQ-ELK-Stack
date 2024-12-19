@@ -73,7 +73,7 @@ const budgetManager = {
         return callback(new Error('No expenses found for this budget'), null);
       }
       callback(null, {
-        expenses: expenses.map((exp) => ({
+        expenses: expenses.map(exp => ({
           expenseId: exp._id.toString(),
           description: exp.description,
           amount: exp.amount,

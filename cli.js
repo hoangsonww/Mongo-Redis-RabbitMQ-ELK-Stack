@@ -8,10 +8,7 @@ const { broadcastNotification } = require('./services/websocketService');
 
 const program = new Command();
 
-program
-  .name('budget-manager')
-  .description('A CLI for managing budgets, tasks, orders, and more.')
-  .version('1.0.0');
+program.name('budget-manager').description('A CLI for managing budgets, tasks, orders, and more.').version('1.0.0');
 
 // Connect to MongoDB
 async function connectToMongoDB() {
@@ -39,7 +36,7 @@ program
 program
   .command('notify <message>')
   .description('Send a real-time notification to WebSocket clients')
-  .action((message) => {
+  .action(message => {
     broadcastNotification({ message });
     console.log(`Notification sent: ${message}`);
     process.exit(0);
@@ -61,7 +58,7 @@ program
 program
   .command('add-task <description>')
   .description('Add a new task to the task queue')
-  .action(async (description) => {
+  .action(async description => {
     await connectToMongoDB();
     const Task = require('./models/task');
     const newTask = new Task({ description, status: 'pending' });
@@ -124,7 +121,7 @@ program
 program
   .command('search-expenses <query>')
   .description('Search for expenses using a query')
-  .action(async (query) => {
+  .action(async query => {
     const esClient = require('./services/elasticService');
     try {
       const result = await esClient.search({
@@ -136,7 +133,10 @@ program
           },
         },
       });
-      console.log('Search results:', result.hits.hits.map((hit) => hit._source));
+      console.log(
+        'Search results:',
+        result.hits.hits.map(hit => hit._source)
+      );
     } catch (error) {
       console.error('Error searching expenses:', error.message);
     }
@@ -147,7 +147,7 @@ program
 program
   .command('graphql-query <query>')
   .description('Perform a GraphQL query')
-  .action(async (query) => {
+  .action(async query => {
     const axios = require('axios');
     try {
       const response = await axios.post('http://localhost:3000/graphql', { query });

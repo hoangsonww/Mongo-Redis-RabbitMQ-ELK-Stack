@@ -6,13 +6,14 @@ const {
   updateTransactionLog,
   deleteTransactionLog,
 } = require('../controllers/transactionController');
+const authenticate = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.post('/', addTransactionLog);
-router.get('/', getAllTransactionLogs);
-router.get('/user/:userId', getTransactionLogsByUser);
-router.put('/:id', updateTransactionLog);
-router.delete('/:id', deleteTransactionLog);
+router.post('/', authenticate, addTransactionLog);
+router.get('/', authenticate, getAllTransactionLogs);
+router.get('/user/:userId', authenticate, getTransactionLogsByUser);
+router.put('/:id', authenticate, updateTransactionLog);
+router.delete('/:id', authenticate, deleteTransactionLog);
 
 module.exports = router;
