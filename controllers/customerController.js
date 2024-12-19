@@ -115,3 +115,64 @@ exports.getAllCustomers = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @swagger
+ * /api/customers/{id}:
+ *   get:
+ *     summary: Retrieve a customer by ID
+ *     tags: [Customers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the customer to retrieve
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Customer found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: 64c9b5f4e7a7d2b001e76a1b
+ *                 name:
+ *                   type: string
+ *                   example: John Doe
+ *                 email:
+ *                   type: string
+ *                   example: john.doe@example.com
+ *                 phone:
+ *                   type: string
+ *                   example: +123456789
+ *       404:
+ *         description: Customer not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Customer not found
+ *       500:
+ *         description: Server error.
+ */
+exports.getCustomerById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const customer = await Customer.findById(id);
+
+    if (!customer) {
+      return res.status(404).json({ error: 'Customer not found' });
+    }
+
+    res.json(customer);
+  } catch (error) {
+    next(error);
+  }
+};

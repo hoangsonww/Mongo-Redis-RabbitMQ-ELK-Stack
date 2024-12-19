@@ -14,6 +14,11 @@ const startGrpcServer = require('./grpcServer');
 const cors = require('cors');
 
 const app = express();
+
+// CORS
+app.use(cors()); // Enable All CORS Requests
+
+// Body Parser Middleware
 app.use(express.json());
 
 // Swagger Setup
@@ -39,9 +44,6 @@ seedMongoData();
 
 // Routes
 app.use('/api', routes);
-
-// CORS
-app.use(cors()); // Enable All CORS Requests
 
 app.get('/', (req, res) => {
   const htmlPath = path.join(__dirname, 'views', 'home.html');
