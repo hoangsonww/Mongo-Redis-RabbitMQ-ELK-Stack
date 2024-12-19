@@ -279,13 +279,13 @@ exports.getCustomerById = async (req, res, next) => {
  */
 exports.deleteCustomerById = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { customerId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: 'Invalid customer ID format' });
     }
 
-    const customer = await Customer.findByIdAndDelete(id);
+    const customer = await Customer.findByIdAndDelete(customerId);
 
     if (!customer) {
       return res.status(404).json({ error: 'Customer not found' });
@@ -375,14 +375,14 @@ exports.deleteCustomerById = async (req, res, next) => {
  */
 exports.updateCustomerById = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { customerId } = req.params;
     const { name, email, phone } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: 'Invalid customer ID format' });
     }
 
-    const updatedCustomer = await Customer.findByIdAndUpdate(id, { name, email, phone }, { new: true, runValidators: true });
+    const updatedCustomer = await Customer.findByIdAndUpdate(customerId, { name, email, phone }, { new: true, runValidators: true });
 
     if (!updatedCustomer) {
       return res.status(404).json({ error: 'Customer not found' });
