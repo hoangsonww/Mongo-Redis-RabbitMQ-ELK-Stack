@@ -1,10 +1,10 @@
 const { Kafka } = require('kafkajs');
-const config = require('../config');
+const config = require('../config/config');
 
 // Initialize Kafka
 const kafka = new Kafka({
   clientId: 'demo-kafka-app',
-  brokers: [config.kafkaBroker], // Provide the Kafka broker URL from your config
+  brokers: [config.kafkaBroker],
 });
 
 const producer = kafka.producer();
@@ -30,9 +30,9 @@ async function connectToKafka() {
         });
       },
     });
-
   } catch (err) {
-    console.error('Kafka Connection Error:', err);
+    console.warn('Kafka Connection Error:', err.message);
+    console.warn('Kafka is optional. Proceeding without Kafka.');
   }
 }
 
@@ -45,7 +45,7 @@ async function sendMessageToKafka(message) {
     });
     console.log(`Sent message to Kafka: ${message}`);
   } catch (err) {
-    console.error('Error sending message to Kafka:', err);
+    console.warn('Error sending message to Kafka:', err.message);
   }
 }
 

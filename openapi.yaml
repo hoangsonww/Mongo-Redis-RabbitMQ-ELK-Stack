@@ -1,0 +1,445 @@
+openapi: 3.0.0
+info:
+  title: Budget Management API
+  description: A comprehensive backend API for managing budgets, expenses, orders, transactions, and notifications.
+  version: 1.0.0
+  contact:
+    name: Son Nguyen
+    url: https://sonnguyenhoang.com
+    email: hoangson091104@gmail.com
+servers:
+  - url: https://mongo-redis-rabbitmq-kafka-elk-backend.onrender.com
+    description: Production Server
+  - url: http://localhost:3000
+    description: Local Development Server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        _id:
+          type: string
+          description: The unique identifier for the user.
+        username:
+          type: string
+          description: The username of the user.
+        email:
+          type: string
+          description: The email address of the user.
+        password:
+          type: string
+          description: The hashed password of the user.
+        createdAt:
+          type: string
+          format: date-time
+          description: When the user was created.
+    Budget:
+      type: object
+      required:
+        - name
+        - limit
+      properties:
+        _id:
+          type: string
+          description: The unique identifier for the budget.
+        name:
+          type: string
+          description: The name of the budget.
+        limit:
+          type: number
+          description: The spending limit for the budget.
+        createdAt:
+          type: string
+          format: date-time
+          description: When the budget was created.
+    Customer:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        _id:
+          type: string
+          description: The unique identifier for the customer.
+        name:
+          type: string
+          description: The name of the customer.
+        email:
+          type: string
+          description: The email address of the customer.
+        phone:
+          type: string
+          description: The phone number of the customer.
+    Expense:
+      type: object
+      required:
+        - budgetId
+        - description
+        - amount
+      properties:
+        _id:
+          type: string
+          description: The unique identifier for the expense.
+        budgetId:
+          type: string
+          description: The ID of the associated budget.
+        description:
+          type: string
+          description: Details about the expense.
+        amount:
+          type: number
+          description: The amount of the expense.
+        createdAt:
+          type: string
+          format: date-time
+          description: When the expense was created.
+    Order:
+      type: object
+      required:
+        - customerId
+        - amount
+      properties:
+        _id:
+          type: string
+          description: The unique identifier for the order.
+        customerId:
+          type: string
+          description: The ID of the associated customer.
+        amount:
+          type: number
+          description: The total amount for the order.
+        status:
+          type: string
+          description: The status of the order.
+          default: pending
+        createdAt:
+          type: string
+          format: date-time
+          description: When the order was created.
+    Task:
+      type: object
+      required:
+        - description
+      properties:
+        _id:
+          type: string
+          description: The unique identifier for the task.
+        description:
+          type: string
+          description: Details about the task.
+        status:
+          type: string
+          description: The status of the task.
+          default: pending
+        createdAt:
+          type: string
+          format: date-time
+          description: When the task was created.
+
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a new user
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: User registered successfully.
+  /api/auth/login:
+    post:
+      summary: Authenticate a user and return a JWT
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: User authenticated successfully.
+  /api/auth/logout:
+    post:
+      summary: Logout a user
+      tags: [Auth]
+      responses:
+        200:
+          description: User logged out successfully.
+
+  /api/budgets:
+    post:
+      summary: Create a new budget
+      tags: [Budgets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Budget'
+      responses:
+        201:
+          description: Budget created successfully.
+    get:
+      summary: Get all budgets
+      tags: [Budgets]
+      responses:
+        200:
+          description: List of budgets.
+
+  /api/budgets/{id}:
+    get:
+      summary: Get a budget by ID
+      tags: [Budgets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Budget retrieved successfully.
+
+  /api/customers:
+    post:
+      summary: Create a new customer
+      tags: [Customers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        201:
+          description: Customer created successfully.
+    get:
+      summary: Retrieve a list of all customers
+      tags: [Customers]
+      responses:
+        200:
+          description: List of customers.
+
+  /api/expenses:
+    post:
+      summary: Add a new expense to a budget
+      tags: [Expenses]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Expense'
+      responses:
+        201:
+          description: Expense created successfully.
+  /api/expenses/{budgetId}:
+    get:
+      summary: Retrieve all expenses for a specific budget
+      tags: [Expenses]
+      parameters:
+        - name: budgetId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of expenses.
+
+  /api/notifications/send:
+    post:
+      summary: Send a real-time notification
+      tags: [Notifications]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      responses:
+        200:
+          description: Notification sent successfully.
+
+  /api/orders:
+    post:
+      summary: Create a new order
+      tags: [Orders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        201:
+          description: Order created successfully.
+    get:
+      summary: Retrieve all orders
+      tags: [Orders]
+      responses:
+        200:
+          description: List of orders.
+
+  /api/orders/{id}:
+    get:
+      summary: Retrieve an order by ID
+      tags: [Orders]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Order retrieved successfully.
+    delete:
+      summary: Delete an order by ID
+      tags: [Orders]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Order deleted successfully.
+
+  /api/expenses/search:
+    post:
+      summary: Search expenses in Elasticsearch
+      tags: [Search]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+      responses:
+        200:
+          description: Search results.
+
+  /api/tasks:
+    post:
+      summary: Submit a task to RabbitMQ
+      tags: [Tasks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        202:
+          description: Task submitted successfully.
+  /api/tasks/{id}:
+    get:
+      summary: Check the status of a task
+      tags: [Tasks]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Task status.
+
+  /api/transactions:
+    post:
+      summary: Add a new transaction log
+      tags: [Transactions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                description:
+                  type: string
+                amount:
+                  type: number
+                budgetId:
+                  type: string
+      responses:
+        201:
+          description: Transaction added successfully.
+    get:
+      summary: Retrieve all transaction logs
+      tags: [Transactions]
+      responses:
+        200:
+          description: List of transactions.
+  /api/transactions/user/{userId}:
+    get:
+      summary: Retrieve transaction logs by user ID
+      tags: [Transactions]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Transaction logs for the user.
+
+  /api/users/profile:
+    get:
+      summary: Get the profile of the currently authenticated user
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: User profile retrieved successfully.
+    put:
+      summary: Update the profile of the currently authenticated user
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+      responses:
+        200:
+          description: User profile updated successfully.

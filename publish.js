@@ -1,5 +1,5 @@
 const amqp = require('amqplib');
-const config = require('./config');
+const config = require('./config/config');
 
 async function publishMessage(messageContent) {
   try {

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package budget;
+
+service BudgetManager {
+  rpc GetBudget(GetBudgetRequest) returns (GetBudgetResponse);
+  rpc CreateBudget(CreateBudgetRequest) returns (CreateBudgetResponse);
+  rpc AddExpense(AddExpenseRequest) returns (AddExpenseResponse);
+  rpc GetExpenses(GetExpensesRequest) returns (GetExpensesResponse);
+}
+
+message GetBudgetRequest {
+  string budgetId = 1;
+}
+
+message GetBudgetResponse {
+  string budgetId = 1;
+  string name = 2;
+  double limit = 3;
+  string createdAt = 4;
+}
+
+message CreateBudgetRequest {
+  string name = 1;
+  double limit = 2;
+}
+
+message CreateBudgetResponse {
+  string budgetId = 1;
+}
+
+message AddExpenseRequest {
+  string budgetId = 1;
+  string description = 2;
+  double amount = 3;
+}
+
+message AddExpenseResponse {
+  string expenseId = 1;
+}
+
+message GetExpensesRequest {
+  string budgetId = 1;
+}
+
+message GetExpensesResponse {
+  repeated Expense expenses = 1;
+}
+
+message Expense {
+  string expenseId = 1;
+  string description = 2;
+  double amount = 3;
+  string createdAt = 4;
+}

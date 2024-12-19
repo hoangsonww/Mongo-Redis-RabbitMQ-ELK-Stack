@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
     "install-deps": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --config .prettierrc --write \"index.js\" \"config.js\" \"publish.js\" \"elk-stack/*.{html,css,js,jsx,ts,tsx}\" \"postgresql/*.{html,css,js,jsx,ts,tsx}\" \"redis-mongo-flow/*.{html,css,js,jsx,ts,tsx}\" \"round-robin/*.{html,css,js,jsx,ts,tsx}\" \"routes/*.{html,css,js,jsx,ts,tsx}\""
@@ -35,18 +36,34 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
+    "@grpc/grpc-js": "^1.12.5",
+    "@grpc/proto-loader": "^0.7.13",
     "amqplib": "^0.10.4",
     "axios": "^1.7.2",
+    "bcrypt": "^5.1.1",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.7",
     "express": "^4.19.2",
+    "express-graphql": "^0.12.0",
     "http-proxy": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
     "kafkajs": "^2.2.4",
     "mongodb": "^6.9.0",
     "mongoose": "^8.4.1",
     "node-fetch": "^3.3.2",
-    "pg": "^8.12.0",
+    "pg": "^8.13.1",
     "prettier": "^3.3.3",
     "redis": "^4.6.14",
+    "sequelize": "^6.37.5",
+    "sequelize-cli": "^6.6.2",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "bin": {
+    "budget-manager": "./cli.js"
   }
 }
