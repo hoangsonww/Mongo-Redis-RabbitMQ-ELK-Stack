@@ -11,6 +11,7 @@ const config = require('./config/config');
 const { connectToRabbitMQ } = require('./services/rabbitMQService');
 const seedMongoData = require('./services/dataSeeder');
 const startGrpcServer = require('./grpcServer');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
@@ -38,6 +39,9 @@ seedMongoData();
 
 // Routes
 app.use('/api', routes);
+
+// CORS
+app.use(cors()); // Enable All CORS Requests
 
 app.get('/', (req, res) => {
   const htmlPath = path.join(__dirname, 'views', 'home.html');

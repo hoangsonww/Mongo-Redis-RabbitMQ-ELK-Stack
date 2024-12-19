@@ -44,6 +44,7 @@
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "commander": "^12.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.19.2",
     "express-graphql": "^0.12.0",
