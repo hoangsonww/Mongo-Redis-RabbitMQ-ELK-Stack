@@ -153,7 +153,6 @@ exports.updateProfile = async (req, res, next) => {
   }
 };
 
-
 /**
  * @swagger
  * /api/users:
