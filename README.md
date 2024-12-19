@@ -459,6 +459,44 @@ Follow these steps to use the CLI:
    ```bash
     budget-manager --help
     ```
+   
+  This will display a list of available commands and options:
+  ```plaintext
+  budget-manager --help
+  Usage: budget-manager [options] [command]
+  
+  A CLI for managing budgets, tasks, orders, and more.
+  
+  Options:
+    -V, --version                        output the version number
+    -h, --help                           display help for command
+  
+  Commands:
+    seed                                 Seed the MongoDB database with initial data
+    notify <message>                     Send a real-time notification to WebSocket clients
+    list-budgets                         List all budgets in the database
+    add-task <description>               Add a new task to the task queue
+    list-orders                          List all orders in the database
+    add-order <customerId> <amount>      Add a new order
+    list-customers                       List all customers in the database
+    add-customer <name> <email> [phone]  Add a new customer
+    search-expenses <query>              Search for expenses using a query
+    graphql-query <query>                Perform a GraphQL query
+    help [command]                       display help for command
+  
+  Examples:
+    $ budget-manager seed
+    $ budget-manager notify "Hello World!"
+    $ budget-manager list-budgets
+    $ budget-manager add-task "New Task Description"
+  ```
+   
+4. View version information:
+   ```bash
+   budget-manager --version
+   ```
+   
+The CLI provides a simple way to interact with the backend API and perform various operations. It can be used for testing, debugging, and managing the application without a frontend interface or using the Swagger documentation.
 
 ## **Swagger Documentation**
 
