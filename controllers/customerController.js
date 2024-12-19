@@ -28,12 +28,16 @@ const mongoose = require('mongoose');
  *               name:
  *                 type: string
  *                 description: The customer's name.
+ *                 example: "John Doe"
  *               email:
  *                 type: string
  *                 description: The customer's email address.
+ *                 format: email
+ *                 example: "john.doe@example.com"
  *               phone:
  *                 type: string
  *                 description: The customer's phone number.
+ *                 example: "+123456789"
  *     responses:
  *       201:
  *         description: Customer created successfully.
@@ -44,18 +48,18 @@ const mongoose = require('mongoose');
  *               properties:
  *                 _id:
  *                   type: string
- *                   example: 64c9b5f4e7a7d2b001e76a1b
+ *                   example: "64c9b5f4e7a7d2b001e76a1b"
  *                 name:
  *                   type: string
- *                   example: John Doe
+ *                   example: "John Doe"
  *                 email:
  *                   type: string
- *                   example: john.doe@example.com
+ *                   example: "john.doe@example.com"
  *                 phone:
  *                   type: string
- *                   example: +123456789
+ *                   example: "+123456789"
  *       400:
- *         description: Bad request.
+ *         description: Bad request. Validation or duplicate key error.
  *         content:
  *           application/json:
  *             schema:
@@ -63,17 +67,69 @@ const mongoose = require('mongoose');
  *               properties:
  *                 error:
  *                   type: string
- *                   example: Invalid request data
+ *                   example: "Validation error"
+ *                 details:
+ *                   type: array
+ *                   description: Detailed validation or error information.
+ *                   items:
+ *                     type: string
+ *                   example:
+ *                     - "Name is required."
+ *                     - "Email must be unique."
  *       500:
- *         description: Server error.
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Internal server error"
+ *                 details:
+ *                   type: string
+ *                   example: "An unexpected error occurred while processing your request."
  */
 exports.createCustomer = async (req, res, next) => {
   try {
-    const customer = new Customer(req.body);
+    const { name, email, phone } = req.body;
+
+    // Validate required fields
+    if (!name || !email || !phone) {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: 'Name, email, and phone are required fields.',
+      });
+    }
+
+    // Create and save the customer
+    const customer = new Customer({ name, email, phone });
     const savedCustomer = await customer.save();
+
     res.status(201).json(savedCustomer);
   } catch (error) {
-    next(error);
+    // Handle duplicate key error (e.g., unique email constraint)
+    if (error.code === 11000) {
+      return res.status(400).json({
+        error: 'Duplicate key error',
+        details: `A customer with the same ${Object.keys(error.keyValue).join(', ')} already exists.`,
+      });
+    }
+
+    // Handle validation errors (e.g., schema validation)
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: Object.values(error.errors).map((err) => err.message),
+      });
+    }
+
+    // Log and handle unexpected errors
+    console.error('Unexpected error:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      details: 'An unexpected error occurred while processing your request.',
+    });
   }
 };
 
@@ -165,15 +221,13 @@ exports.getAllCustomers = async (req, res, next) => {
  */
 exports.getCustomerById = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { customerId } = req.params;
 
-    // Validate if the provided ID is a valid MongoDB ObjectId
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(customerId)) {
       return res.status(400).json({ error: 'Invalid customer ID format' });
     }
 
-    // Cast the id to ObjectId
-    const customer = await Customer.findById(mongoose.Types.ObjectId(id));
+    const customer = await Customer.findById(customerId);
 
     if (!customer) {
       return res.status(404).json({ error: 'Customer not found' });
@@ -181,7 +235,7 @@ exports.getCustomerById = async (req, res, next) => {
 
     res.json(customer);
   } catch (error) {
-    console.error("Error retrieving customer by ID:", error);
+    console.error('Error retrieving customer:', error);
     next(error);
   }
 };

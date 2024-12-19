@@ -47,7 +47,7 @@ The purpose of this API is to demonstrate the capabilities of modern backend tec
 
 The Budget Management API is deployed live at [https://budget-management-backend-api.onrender.com](https://budget-management-backend-api.onrender.com).
 
-You can access the API and test the endpoints directly from the browser. Feel free to use the API for your own projects or applications. Simply add some attribution to the original repository and the creator.
+You can access the API and test the endpoints directly from the browser. Feel free to use the API for your own projects or applications. Simply add some attribution to the original repository and the creator. Also, be sure that you use your own credentials and tokens, otherwise your data may clash with mine and other users' data!
 
 > Note: Be mindful of the rate limits and usage policies when testing the live API. Additionally, because the API is hosted on the free plan of Render, it may take a while (1-2 minutes) to wake up if it has been inactive for some time. Kindly be patient during this process!
 

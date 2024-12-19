@@ -1,20 +1,25 @@
-const { Client } = require('@elastic/elasticsearch');
+const { Client } = require('elasticsearch'); // Use legacy client for Elasticsearch 6.x
 const config = require('../config/config');
 
-// Initialize ElasticSearch client
-const esClient = new Client({ node: config.elasticSearchUrl });
+// Initialize Elasticsearch client
+const esClient = new Client({
+  host: config.elasticSearchUrl, // Elasticsearch server URL
+  log: 'info', // Optional: Logging level (trace, debug, info, warning, error)
+});
 
 /**
- * Check if ElasticSearch is connected and the index exists
+ * Check if Elasticsearch is connected and the index exists
  */
 const initializeElasticSearch = async () => {
   try {
-    const { body: health } = await esClient.cluster.health({});
-    console.log('ElasticSearch cluster health:', health.status);
+    // Check cluster health
+    const health = await esClient.cluster.health({});
+    console.log('Elasticsearch cluster health:', health.status);
 
-    // Ensure "expenses" index exists
+    // Check if the "expenses" index exists
     const indexExists = await esClient.indices.exists({ index: 'expenses' });
-    if (!indexExists.body) {
+    if (!indexExists) {
+      // Create the "expenses" index with mappings
       await esClient.indices.create({
         index: 'expenses',
         body: {
@@ -29,15 +34,17 @@ const initializeElasticSearch = async () => {
           },
         },
       });
-      console.log('ElasticSearch "expenses" index created.');
+      console.log('Elasticsearch "expenses" index created.');
     } else {
-      console.log('ElasticSearch "expenses" index already exists.');
+      console.log('Elasticsearch "expenses" index already exists.');
     }
   } catch (error) {
-    console.error('Error initializing ElasticSearch:', error.message);
+    console.error('Error initializing Elasticsearch:', error.message);
   }
 };
 
+// Initialize Elasticsearch
 initializeElasticSearch();
 
+// Export the client
 module.exports = esClient;

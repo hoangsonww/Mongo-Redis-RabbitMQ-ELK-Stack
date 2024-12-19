@@ -13,6 +13,8 @@ const seedMongoData = require('./services/dataSeeder');
 const startGrpcServer = require('./grpcServer');
 const cors = require('cors');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const app = express();
 
 // CORS

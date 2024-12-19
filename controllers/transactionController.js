@@ -145,3 +145,139 @@ exports.getTransactionLogsByUser = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @swagger
+ * /api/transactions/{id}:
+ *   delete:
+ *     summary: Delete a transaction log by ID
+ *     tags: [Transactions]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the transaction to delete.
+ *     responses:
+ *       200:
+ *         description: Transaction deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Transaction deleted successfully"
+ *       404:
+ *         description: Transaction not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Transaction not found"
+ *       500:
+ *         description: Server error.
+ */
+exports.deleteTransactionLog = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const query = 'DELETE FROM transaction_logs WHERE id = $1 RETURNING *;';
+    const result = await pool.query(query, [id]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Transaction not found' });
+    }
+
+    res.status(200).json({ message: 'Transaction deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting transaction log:', error.message);
+    next(error);
+  }
+};
+
+/**
+ * @swagger
+ * /api/transactions/{id}:
+ *   put:
+ *     summary: Update a transaction log by ID
+ *     tags: [Transactions]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the transaction to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               description:
+ *                 type: string
+ *                 description: Updated description of the transaction.
+ *               amount:
+ *                 type: number
+ *                 description: Updated amount of the transaction.
+ *               budgetId:
+ *                 type: string
+ *                 description: Updated budget ID associated with the transaction.
+ *     responses:
+ *       200:
+ *         description: Transaction updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Transaction updated successfully"
+ *                 transaction:
+ *                   type: object
+ *       404:
+ *         description: Transaction not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Transaction not found"
+ *       500:
+ *         description: Server error.
+ */
+exports.updateTransactionLog = async (req, res, next) => {
+  const { id } = req.params;
+  const { description, amount, budgetId } = req.body;
+
+  try {
+    const query = `
+      UPDATE transaction_logs
+      SET description = $1, amount = $2, budget_id = $3
+      WHERE id = $4
+      RETURNING *;
+    `;
+
+    const values = [description, amount, budgetId, id];
+    const result = await pool.query(query, values);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Transaction not found' });
+    }
+
+    res.status(200).json({ message: 'Transaction updated successfully', transaction: result.rows[0] });
+  } catch (error) {
+    console.error('Error updating transaction log:', error.message);
+    next(error);
+  }
+};

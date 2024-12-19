@@ -9,6 +9,7 @@ const expenseRoutes = require('./expenseRoutes');
 const graphqlRoutes = require('./graphqlRoutes');
 const notificationRoutes = require('./notificationRoutes');
 const searchRoutes = require('./searchRoutes');
+const transactionRoutes = require('./transactionRoutes');
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.use('/expenses', expenseRoutes);
 router.use('/graphql', graphqlRoutes);
 router.use('/search', searchRoutes);
 router.use('/notifications', notificationRoutes);
+router.use('/transactions', transactionRoutes);
 
 module.exports = router;

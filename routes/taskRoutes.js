@@ -1,5 +1,5 @@
 const express = require('express');
-const { sendTask, checkTaskStatus } = require('../controllers/taskController');
+const { sendTask, checkTaskStatus, deleteTask } = require('../controllers/taskController');
 
 const router = express.Router();
 
@@ -8,6 +8,9 @@ router.post('/', sendTask);
 router.post('/tasks', sendTask);
 
 // Check the status of a task (using Redis)
-router.get('/tasks/:id/status', checkTaskStatus);
+router.get('/:id', checkTaskStatus);
+
+// Delete a task from RabbitMQ
+router.delete('/:id', deleteTask);
 
 module.exports = router;

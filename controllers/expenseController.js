@@ -1,6 +1,8 @@
 const Expense = require('../models/expense');
 const Budget = require('../models/budget');
 const redisClient = require('../services/redisService');
+const mongoose = require('mongoose');
+const esClient = require('../services/elasticService');
 
 /**
  * @swagger
@@ -78,13 +80,67 @@ exports.addExpense = async (req, res, next) => {
   const { budgetId, description, amount } = req.body;
 
   try {
-    // Ensure budget exists
-    const budget = await Budget.findById(budgetId);
-    if (!budget) return res.status(404).json({ error: 'Budget not found' });
+    // Validate budgetId format
+    if (!mongoose.Types.ObjectId.isValid(budgetId)) {
+      return res.status(400).json({ error: 'Invalid budget ID format' });
+    }
 
-    // Create expense
+    // Ensure the budget exists
+    const budget = await Budget.findById(budgetId);
+    if (!budget) {
+      return res.status(404).json({ error: 'Budget not found' });
+    }
+
+    // Check if the Elasticsearch index exists
+    const indexExists = await esClient.indices.exists({ index: 'expenses' });
+    if (!indexExists) { // Check if the index does NOT exist
+      console.log('Creating Elasticsearch index with correct mapping...');
+      await esClient.indices.create({
+        index: 'expenses',
+        body: {
+          mappings: {
+            properties: {
+              description: {
+                type: 'text',
+                fields: {
+                  keyword: {
+                    type: 'keyword',
+                  },
+                },
+              },
+              budgetId: {
+                type: 'keyword',
+              },
+              amount: {
+                type: 'float',
+              },
+              createdAt: {
+                type: 'date',
+              },
+            },
+          },
+        },
+      });
+      console.log('Elasticsearch index created successfully.');
+    }
+
+    // Create expense in MongoDB
     const expense = new Expense({ budgetId, description, amount });
     const savedExpense = await expense.save();
+
+    // Sync expense to Elasticsearch
+    await esClient.index({
+      index: 'expenses',
+      id: savedExpense._id.toString(), // Use MongoDB's _id as the Elasticsearch document ID
+      body: {
+        budgetId: savedExpense.budgetId,
+        description: savedExpense.description,
+        amount: savedExpense.amount,
+        createdAt: savedExpense.createdAt,
+      },
+    });
+
+    console.log(`Indexed document in Elasticsearch: ${savedExpense._id}`);
 
     // Update Redis cache for the budget
     const cachedBudget = await redisClient.get(`budget:${budgetId}`);
@@ -97,7 +153,15 @@ exports.addExpense = async (req, res, next) => {
 
     res.status(201).json({ message: 'Expense added', expense: savedExpense });
   } catch (error) {
-    next(error);
+    console.error('Error adding expense:', error);
+
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ error: 'Validation error', details: error.errors });
+    }
+
+    // General server error
+    res.status(500).json({ error: 'An unexpected error occurred', details: error.message });
   }
 };
 

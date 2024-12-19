@@ -1,13 +1,10 @@
 const redis = require('redis');
 const config = require('../config/config');
 
-let redisClient;
+const redisClient = redis.createClient({ url: config.redisUrl });
 
 const connectToRedis = async () => {
   try {
-    // Create Redis client
-    redisClient = redis.createClient({ url: config.redisUrl });
-
     // Event: Successful connection
     redisClient.on('connect', () => {
       console.log('Redis Connected');
@@ -25,13 +22,13 @@ const connectToRedis = async () => {
 
     // Event: Socket closed unexpectedly
     redisClient.on('error', (err) => {
-      console.error('Redis Error:', err.message);
+      console.warn('Redis Error:', err.message);
     });
 
     // Connect to Redis
     await redisClient.connect();
   } catch (err) {
-    console.error('Error connecting to Redis:', err.message);
+    console.warn('Error connecting to Redis:', err.message);
 
     // Retry connection after a delay
     setTimeout(connectToRedis, 5000);

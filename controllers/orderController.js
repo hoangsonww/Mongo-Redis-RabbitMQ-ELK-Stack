@@ -54,11 +54,45 @@ const Order = require('../models/order');
  */
 exports.createOrder = async (req, res, next) => {
   try {
-    const order = new Order(req.body);
+    const { customerId, items } = req.body;
+
+    // Validate required fields
+    if (!customerId || !items || items.length === 0) {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: 'customerId and items are required, and items cannot be empty.',
+      });
+    }
+
+    // Calculate total amount
+    const amount = items.reduce((total, item) => {
+      if (!item.productId || !item.quantity) {
+        throw new Error('Each item must have a productId and quantity.');
+      }
+      return total + item.quantity;
+    }, 0);
+
+    // Create and save the order
+    const order = new Order({ customerId, items, amount });
     const savedOrder = await order.save();
+
     res.status(201).json(savedOrder);
   } catch (error) {
-    next(error);
+    console.error('Error creating order:', error);
+
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: error.errors,
+      });
+    }
+
+    // General server error
+    res.status(500).json({
+      error: 'An unexpected error occurred',
+      details: error.message,
+    });
   }
 };
 
