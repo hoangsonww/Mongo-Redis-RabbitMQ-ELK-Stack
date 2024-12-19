@@ -1,4 +1,5 @@
 const Customer = require('../models/customer');
+const mongoose = require('mongoose');
 
 /**
  * @swagger
