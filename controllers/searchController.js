@@ -9,7 +9,7 @@ const esClient = require('../services/elasticService');
 
 /**
  * @swagger
- * /api/expenses/search:
+ * /api/search:
  *   post:
  *     summary: Search expenses in Elasticsearch
  *     tags: [Search]
