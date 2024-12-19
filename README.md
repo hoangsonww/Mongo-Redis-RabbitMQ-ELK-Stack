@@ -358,6 +358,53 @@ More endpoints and features are available in the API. Refer to the [Swagger docu
 - Metrics and dashboards can be configured.
 - Monitor the health and performance of the API.
 
+## **Services Interaction**
+
+The Budget Management API interacts with various services and databases to provide a comprehensive backend solution. The architecture includes a frontend UI, a CLI tool, an API gateway, a gRPC server, and multiple external services. Here is a high-level overview of the service interaction:
+
+```plaintext
+          +--------------------+               +------------------+
+          |    Frontend UI     |               |                  |
+          |    (not impl.)     |               |  CLI Tool / gRPC |
+          +--------------------+               +------------------+
+                    |                               |
+                    | HTTP/GraphQL Requests         | CLI Commands / gRPC Calls
+                    |                               |
+          +--------------------+                 +------------------+
+          |   API Gateway /    |<--------------->|    gRPC Server   |
+          |    Express.js      |                 +------------------+
+          +--------------------+
+                    |
+                    | RESTful API / WebSocket / GraphQL Responses
+                    |
+          +--------------------+
+          |  Application Core  |
+          |--------------------|
+          |  Controllers /     |
+          |  Services          |
+          +--------------------+
+            |        |         |
+     +------+        |         +-------------+
+     |               |                       |
++----------+   +-----------+           +----------------+
+| MongoDB  |   | PostgreSQL |          | Elasticsearch  |
+| NoSQL DB |   | Relational |          | Search Engine  |
++----------+   +-----------+           +----------------+
+     |               |                       |
+     |               |                       |
++----------+    +-------------+      +----------------+
+|   Redis  |    | RabbitMQ /  |      | Kafka (Event   |
+|   Cache  |    | Kafka Queue |      |   Streaming)   |
++----------+    +-------------+      +----------------+
+                    |
+                    | (Asynchronous Tasks)
+                    |
+          +----------------------+
+          |   External Services  |
+          |  (Email, SMS, etc.)  |
+          +----------------------+
+```
+
 ## **Environment Variables**
 
 Ensure your `.env` file looks like this before getting started:
