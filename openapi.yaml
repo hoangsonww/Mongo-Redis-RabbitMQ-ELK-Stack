@@ -8,7 +8,7 @@ info:
     url: https://sonnguyenhoang.com
     email: hoangson091104@gmail.com
 servers:
-  - url: https://mongo-redis-rabbitmq-kafka-elk-backend.onrender.com
+  - url: https://budget-management-backend-api.onrender.com
     description: Production Server
   - url: http://localhost:3000
     description: Local Development Server
