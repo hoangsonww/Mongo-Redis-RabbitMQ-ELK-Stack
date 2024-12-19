@@ -58,6 +58,7 @@ app.get('/', (req, res) => {
       console.error('Error reading HTML file:', err.message);
       return res.status(500).send('An error occurred while loading the homepage.');
     }
+
     res.send(data);
   });
 });
